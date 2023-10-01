@@ -1,0 +1,406 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 964b95f4fd24d0046b5402b52696f401, type: 3}
+  m_Name: Hero Profile Config Map menu
+  m_EditorClassIdentifier: 
+  list:
+  - id: Menu
+    heroConfig:
+      HeroStats:
+        Name: Menu
+        Description: Menu
+        Rarity: 1
+        Level: 2
+        MaxLevel: 5
+        BlueTeamLevel: 0
+        RedTeamLevel: 0
+        Species: Elf
+        Class: Knight
+        Dmg: 25
+        Hp: 100
+        MaxMana: 100
+        AtkSpeed: 1
+        AtkRange: 2
+        MoveSpeed: 2
+      axieProfile:
+        key: beast-06
+        body: body-normal
+        classIdx: 2
+        classValue: 2
+  - id: Axe
+    heroConfig:
+      HeroStats:
+        Name: Axe
+        Description: Axe
+        Rarity: 1
+        Level: 2
+        MaxLevel: 5
+        BlueTeamLevel: 0
+        RedTeamLevel: 0
+        Species: Beast
+        Class: Warrior
+        Dmg: 25
+        Hp: 100
+        MaxMana: 100
+        AtkSpeed: 1
+        AtkRange: 2
+        MoveSpeed: 2
+      axieProfile:
+        key: reptile-10
+        body: body-normal
+        classIdx: 0
+        classValue: 3
+  - id: Juggernaut
+    heroConfig:
+      HeroStats:
+        Name: Juggernaut
+        Description: Juggernaut
+        Rarity: 1
+        Level: 2
+        MaxLevel: 5
+        BlueTeamLevel: 0
+        RedTeamLevel: 0
+        Species: Beast
+        Class: Hunter
+        Dmg: 25
+        Hp: 100
+        MaxMana: 100
+        AtkSpeed: 1
+        AtkRange: 2
+        MoveSpeed: 2
+      axieProfile:
+        key: reptile-04
+        body: body-fuzzy
+        classIdx: 0
+        classValue: 3
+  - id: Nasus
+    heroConfig:
+      HeroStats:
+        Name: Nasus
+        Description: Nasus
+        Rarity: 1
+        Level: 2
+        MaxLevel: 5
+        BlueTeamLevel: 0
+        RedTeamLevel: 0
+        Species: Beast
+        Class: Knight
+        Dmg: 25
+        Hp: 100
+        MaxMana: 100
+        AtkSpeed: 1
+        AtkRange: 2
+        MoveSpeed: 2
+      axieProfile:
+        key: reptile-06
+        body: body-spiky
+        classIdx: 0
+        classValue: 3
+  - id: Ahri
+    heroConfig:
+      HeroStats:
+        Name: Ahri
+        Description: Ahri
+        Rarity: 1
+        Level: 2
+        MaxLevel: 5
+        BlueTeamLevel: 0
+        RedTeamLevel: 0
+        Species: Beast
+        Class: Mage
+        Dmg: 25
+        Hp: 100
+        MaxMana: 100
+        AtkSpeed: 1
+        AtkRange: 2
+        MoveSpeed: 2
+      axieProfile:
+        key: reptile-02
+        body: body-bigyak
+        classIdx: 0
+        classValue: 3
+  - id: Renekton
+    heroConfig:
+      HeroStats:
+        Name: Renekton
+        Description: Renekton
+        Rarity: 1
+        Level: 2
+        MaxLevel: 5
+        BlueTeamLevel: 0
+        RedTeamLevel: 0
+        Species: Naga
+        Class: Warrior
+        Dmg: 25
+        Hp: 100
+        MaxMana: 100
+        AtkSpeed: 1
+        AtkRange: 2
+        MoveSpeed: 2
+      axieProfile:
+        key: aquatic-06
+        body: body-normal
+        classIdx: 0
+        classValue: 5
+  - id: Sladar
+    heroConfig:
+      HeroStats:
+        Name: Sladar
+        Description: Sladar
+        Rarity: 1
+        Level: 2
+        MaxLevel: 5
+        BlueTeamLevel: 0
+        RedTeamLevel: 0
+        Species: Naga
+        Class: Knight
+        Dmg: 25
+        Hp: 100
+        MaxMana: 100
+        AtkSpeed: 1
+        AtkRange: 2
+        MoveSpeed: 2
+      axieProfile:
+        key: aquatic-mystic-02
+        body: body-spiky
+        classIdx: 0
+        classValue: 5
+  - id: Tide
+    heroConfig:
+      HeroStats:
+        Name: Tide
+        Description: Tide
+        Rarity: 1
+        Level: 2
+        MaxLevel: 5
+        BlueTeamLevel: 0
+        RedTeamLevel: 0
+        Species: Naga
+        Class: Warrior
+        Dmg: 25
+        Hp: 100
+        MaxMana: 100
+        AtkSpeed: 1
+        AtkRange: 2
+        MoveSpeed: 2
+      axieProfile:
+        key: aquatic-mystic-02
+        body: body-bigyak
+        classIdx: 0
+        classValue: 5
+  - id: Medusa
+    heroConfig:
+      HeroStats:
+        Name: Medusa
+        Description: Medusa
+        Rarity: 1
+        Level: 2
+        MaxLevel: 5
+        BlueTeamLevel: 0
+        RedTeamLevel: 0
+        Species: Naga
+        Class: Hunter
+        Dmg: 25
+        Hp: 100
+        MaxMana: 100
+        AtkSpeed: 1
+        AtkRange: 2
+        MoveSpeed: 2
+      axieProfile:
+        key: aquatic-04
+        body: body-fuzzy
+        classIdx: 0
+        classValue: 5
+  - id: Puck
+    heroConfig:
+      HeroStats:
+        Name: Puck
+        Description: Puck
+        Rarity: 1
+        Level: 2
+        MaxLevel: 5
+        BlueTeamLevel: 0
+        RedTeamLevel: 0
+        Species: Dragon
+        Class: Mage
+        Dmg: 25
+        Hp: 100
+        MaxMana: 100
+        AtkSpeed: 1
+        AtkRange: 2
+        MoveSpeed: 2
+      axieProfile:
+        key: bird-04
+        body: body-bigyak
+        classIdx: 1
+        classValue: 3
+  - id: Visage
+    heroConfig:
+      HeroStats:
+        Name: Visage
+        Description: Visage
+        Rarity: 1
+        Level: 2
+        MaxLevel: 5
+        BlueTeamLevel: 0
+        RedTeamLevel: 0
+        Species: Dragon
+        Class: Knight
+        Dmg: 25
+        Hp: 100
+        MaxMana: 100
+        AtkSpeed: 1
+        AtkRange: 2
+        MoveSpeed: 2
+      axieProfile:
+        key: bird-04
+        body: body-spiky
+        classIdx: 1
+        classValue: 3
+  - id: Viper
+    heroConfig:
+      HeroStats:
+        Name: Viper
+        Description: Viper
+        Rarity: 1
+        Level: 2
+        MaxLevel: 5
+        BlueTeamLevel: 0
+        RedTeamLevel: 0
+        Species: Dragon
+        Class: Warrior
+        Dmg: 25
+        Hp: 100
+        MaxMana: 100
+        AtkSpeed: 1
+        AtkRange: 2
+        MoveSpeed: 2
+      axieProfile:
+        key: bird-06
+        body: body-normal
+        classIdx: 1
+        classValue: 3
+  - id: Wyvern
+    heroConfig:
+      HeroStats:
+        Name: Wyvern
+        Description: Wyvern
+        Rarity: 1
+        Level: 2
+        MaxLevel: 5
+        BlueTeamLevel: 0
+        RedTeamLevel: 0
+        Species: Dragon
+        Class: Hunter
+        Dmg: 25
+        Hp: 100
+        MaxMana: 100
+        AtkSpeed: 1
+        AtkRange: 2
+        MoveSpeed: 2
+      axieProfile:
+        key: bird-08
+        body: body-fuzzy
+        classIdx: 1
+        classValue: 3
+  - id: Treant Protector
+    heroConfig:
+      HeroStats:
+        Name: Treant Protector
+        Description: Treant Protector
+        Rarity: 1
+        Level: 2
+        MaxLevel: 5
+        BlueTeamLevel: 0
+        RedTeamLevel: 0
+        Species: Elf
+        Class: Warrior
+        Dmg: 25
+        Hp: 100
+        MaxMana: 100
+        AtkSpeed: 1
+        AtkRange: 2
+        MoveSpeed: 2
+      axieProfile:
+        key: plant-02
+        body: body-normal
+        classIdx: 0
+        classValue: 0
+  - id: Mirana
+    heroConfig:
+      HeroStats:
+        Name: Mirana
+        Description: Mirana
+        Rarity: 1
+        Level: 2
+        MaxLevel: 5
+        BlueTeamLevel: 0
+        RedTeamLevel: 0
+        Species: Elf
+        Class: Hunter
+        Dmg: 25
+        Hp: 100
+        MaxMana: 100
+        AtkSpeed: 1
+        AtkRange: 2
+        MoveSpeed: 2
+      axieProfile:
+        key: japan-03
+        body: body-fuzzy
+        classIdx: 0
+        classValue: 0
+  - id: Furion
+    heroConfig:
+      HeroStats:
+        Name: Furion
+        Description: Furion
+        Rarity: 1
+        Level: 2
+        MaxLevel: 5
+        BlueTeamLevel: 0
+        RedTeamLevel: 0
+        Species: Elf
+        Class: Mage
+        Dmg: 25
+        Hp: 100
+        MaxMana: 100
+        AtkSpeed: 1
+        AtkRange: 2
+        MoveSpeed: 2
+      axieProfile:
+        key: plant-06
+        body: body-bigyak
+        classIdx: 0
+        classValue: 0
+  - id: Groot
+    heroConfig:
+      HeroStats:
+        Name: Groot
+        Description: Groot
+        Rarity: 1
+        Level: 2
+        MaxLevel: 5
+        BlueTeamLevel: 0
+        RedTeamLevel: 0
+        Species: Elf
+        Class: Knight
+        Dmg: 25
+        Hp: 100
+        MaxMana: 100
+        AtkSpeed: 1
+        AtkRange: 2
+        MoveSpeed: 2
+      axieProfile:
+        key: plant-08
+        body: body-spiky
+        classIdx: 0
+        classValue: 0

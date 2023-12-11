@@ -52,7 +52,7 @@ public class ApiRequest : MonoSingleton<ApiRequest>
     
     public async Task<ResponseHandler>  SendGetUserProfileRequest()
     {
-        string url = baseUrl + "/api/user/";
+        string url = baseUrl + "/api/user/profile";
 
         var result = await SendRequestAsync(url, null, UnityWebRequest.kHttpVerbGET, true );
         return result;
@@ -98,7 +98,7 @@ public class ApiRequest : MonoSingleton<ApiRequest>
     
     public async Task<ResponseHandler>  SendGetMatchesRequest()
     {
-        string url = baseUrl + "/api/match/";
+        string url = baseUrl + "/api/match/history";
         
         
         var result = await SendRequestAsync(url, null, UnityWebRequest.kHttpVerbGET, true );
@@ -134,7 +134,7 @@ public class ApiRequest : MonoSingleton<ApiRequest>
     
     public async Task<ResponseHandler>  SendGetCardsRequest()
     {
-        string url = baseUrl + "/api/card/";
+        string url = baseUrl + "/api/card/allcards";
         
         var result = await SendRequestAsync(url, null, UnityWebRequest.kHttpVerbGET, true );
         return result;

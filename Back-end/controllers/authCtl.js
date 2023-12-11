@@ -8,7 +8,7 @@ const User = require("../models/User");
 
 const authController = {
     register: async (req, res) => {
-        const { username, password, fullName, email, role, gold } = req.body;
+        const { username, password, fullName, email, gold } = req.body;
         if (!username) {
             return res
                 .status(400)
@@ -27,9 +27,9 @@ const authController = {
         if (!email) {
             return res.status(400).json({ success: false, message: "Missing email" });
         }
-        //if (!role) {
-        //  return res.status(400).json({ success: false, message: "Missing role" });
-        //}
+    //     //if (!role) {
+    //     //  return res.status(400).json({ success: false, message: "Missing role" });
+    //     //}
         try {
             //check for username already exists
             const user = await User.findOne({ username });
@@ -39,32 +39,33 @@ const authController = {
                     .json({ success: false, message: "username already exists" });
             }
 
-            //all good
-            const hashesPassword = await argon2.hash(password);
-            const newUser = new User({
-                username,
-                password: hashesPassword,
-                fullName,
-                email,
-                role,
-                gold,
-            });
-            await newUser.save();
+      //all good
+      const hashesPassword = await argon2.hash(password);
+      const newUser = new User({
+        username,
+        password: hashesPassword,
+        fullName,
+        email,
+        role: "1",
+        gold,
+      });
+      await newUser.save();
 
-            //return token
-            const accessToken = jwt.sign(
-                { userId: newUser._id },
-                process.env.ACCESS_TOKEN_SECRET
-            );
-            res.json({
-                success: true,
-                message: "Register successfully",
-                accessToken,
-            });
-        } catch (err) {
-            res.status(500).json(err.msg);
-        }
-    },
+      //return token
+      const accessToken = jwt.sign(
+        { userId: newUser._id },
+        process.env.ACCESS_TOKEN_SECRET
+      );
+      res.json({
+        success: true,
+        message: "Register successfully",
+        accessToken,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err.msg);
+    }
+  },
 
     login: async (req, res) => {
         const { username, password } = req.body;
@@ -92,24 +93,25 @@ const authController = {
                     .json({ success: false, message: "Incorect username/password" });
             }
 
-            //All good
-            //return token
-            const accessToken = jwt.sign(
-                { userId: user._id },
-                process.env.ACCESS_TOKEN_SECRET
-            );
-            res.json({
-                success: true,
-                message: "Loggin successfully",
-                accessToken,
-            });
-        } catch (error) {
-            res.status(500).json({
-                success: false,
-                message: "Internal server error",
-            });
-        }
-    },
+      //All good
+      //return token
+      console.log({ user });
+      const accessToken = jwt.sign(
+        { userId: user._id },
+        process.env.ACCESS_TOKEN_SECRET
+      );
+      res.json({
+        success: true,
+        message: "Loggin successfully",
+        accessToken,
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "Internal server error",
+      });
+    }
+  },
 };
 
 module.exports = authController;

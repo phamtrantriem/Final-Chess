@@ -12,5 +12,6 @@ router.post("/create", verifyToken, matchController.create);
 // @Get all matches
 // @access private
 router.get("/history", verifyToken, matchController.getall);
+router.get("/ranking", verifyToken, matchController.getRanking);
 
 module.exports = router;

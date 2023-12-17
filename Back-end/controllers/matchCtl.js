@@ -4,11 +4,11 @@ const User = require("../models/User");
 const Match = require("../models/Match");
 
 const matchController = {
-    create: async (req, res) => {
-        const { round, winner, loser } = req.body;
-        try {
-            const winnerUser = await User.findOne({ username: winner });
-            const loserUser = await User.findOne({ username: loser });
+  create: async (req, res) => {
+    const { round, winner, loser } = req.body;
+    try {
+      const winnerUser = await User.findOne({ username: winner });
+      const loserUser = await User.findOne({ username: loser });
       console.log({ winnerUser });
       console.log({ loserUser });
 
@@ -51,6 +51,78 @@ const matchController = {
       res.status(200).json({
         success: true,
         matches,
+      });
+    } catch (error) {
+      console.log({ error });
+      res.status(500).json({
+        success: false,
+        message: "Internal server error",
+      });
+    }
+  },
+  getRanking: async (req, res) => {
+    try {
+      const top10 = await Match.aggregate([
+        {
+          $group: {
+            _id: "$winner",
+            count: { $sum: 1 },
+          },
+        },
+        {
+          $lookup: {
+            from: "users", // Assuming your users collection name is "users"
+            localField: "_id",
+            foreignField: "_id",
+            as: "winnerData",
+          },
+        },
+        {
+          $unwind: "$winnerData",
+        },
+        {
+          $project: {
+            _id: 0,
+            userData: "$winnerData",
+            count: 1,
+          },
+        },
+        {
+          $sort: { count: -1 },
+        },
+        {
+          $limit: 10,
+        },
+      ]);
+      console.log({ data: req.userId });
+      const selfRank = await Match.aggregate([
+        {
+          $match: {
+            winner: new Types.ObjectId(req.userId),
+          },
+        },
+        {
+          $group: {
+            _id: "$winner",
+            count: { $sum: 1 },
+          },
+        },
+        {
+          $lookup: {
+            from: "users",
+            localField: "_id",
+            foreignField: "_id",
+            as: "userData",
+          },
+        },
+        {
+          $unwind: "$userData",
+        },
+      ]);
+      res.status(200).json({
+        success: true,
+        ranking: top10,
+        self: selfRank?.[0],
       });
     } catch (error) {
       console.log({ error });

@@ -19,6 +19,8 @@ public class Login : MonoBehaviour
 
     private void Start()
     {
+        username.text = "hadestrb";
+        password.text = "123123123";
         btn.onClick.AddListener(OnLogin);
     }
 

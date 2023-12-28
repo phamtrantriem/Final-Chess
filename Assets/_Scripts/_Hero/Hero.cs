@@ -51,10 +51,12 @@ public class Hero : MonoBehaviour
         _axieSpawner.Init(this);
         _heroHUD.SetLevel(Level);
         _heroHUD.SetSliderBar(teamID);
+        
 
         var config = _heroProfileConfigMap.GetValueFromKey(heroID);
-
         HeroStats = config.HeroStats;
+
+        _heroHUD.SetHeroAttribute(HeroStats);
     }
 
     public void LevelUp()

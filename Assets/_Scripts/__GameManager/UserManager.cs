@@ -12,8 +12,7 @@ public class UserManager : MonoSingleton<UserManager>
     public string fullName;
     public string email;
     public int gold;
-    
-  
+    private int coinInGame = 0;
 
     public void GetUserInfomation()
     {
@@ -43,4 +42,6 @@ public class UserManager : MonoSingleton<UserManager>
         this.email = email;
         this.gold = gold;
     }
+    public int CoinInGame { get => coinInGame; set => coinInGame = value; }
+
 }

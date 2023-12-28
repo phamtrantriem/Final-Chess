@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -10,6 +11,7 @@ public class GameFlowManager : MonoSingleton<GameFlowManager>
     public GamePlayState gamePlayState;
 
     public int round;
+    public int coinInGame;
     public int heroOnBoard;
     public int maxHeroOnBoard = 5;
     public int selectPhaseTime = 30;

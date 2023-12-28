@@ -28,19 +28,20 @@ public class SetupMatch : MonoBehaviour, IOnEventCallback
     private void SetUpMatchInfomation()
     {
         GameFlowManager.instance.round = 0;
+        GameFlowManager.instance.coin = (GameFlowManager.instance.round + 1) * 2 > 12 ? 10 : (GameFlowManager.instance.round + 1) * 2;
         GameFlowManager.instance.heroOnBoard = 0;
         
         if (PhotonNetwork.IsMasterClient)
         {
             GameFlowManager.instance.playerTeam = TeamID.Blue;
             _blueFullnameTxt.text = UserManager.instance.fullName;
-            SendPlayerInformation(TeamID.Blue, UserManager.instance.fullName, UserManager.instance.username);
+            SendPlayerInformation(TeamID.Blue, UserManager.instance.fullName, UserManager.instance.username, UserManager.instance.CoinInGame += GameFlowManager.instance.coin);
         }
         else
         {
             GameFlowManager.instance.playerTeam = TeamID.Red;
             _redFullnameTxt.text = UserManager.instance.fullName;
-            SendPlayerInformation(TeamID.Red, UserManager.instance.fullName, UserManager.instance.username);
+            SendPlayerInformation(TeamID.Red, UserManager.instance.fullName, UserManager.instance.username, UserManager.instance.CoinInGame += GameFlowManager.instance.coin);
         }
     }
     
@@ -52,11 +53,13 @@ public class SetupMatch : MonoBehaviour, IOnEventCallback
         string username = (string)data[2];
         string[] ids = (string[])data[3];
         int[] levels = (int[])data[4];
+        int coinInGame = (int)data[5];
         
         if (teamID == TeamID.Blue)
         {
             _blueFullnameTxt.text = name;
             MatchManager.instance.userBlue = username;
+
             
             for (int i = 0; i < ids.Length; i++)
             {
@@ -75,7 +78,7 @@ public class SetupMatch : MonoBehaviour, IOnEventCallback
         }
     }
 
-    private void SendPlayerInformation(TeamID teamID, string name, string userName)
+    private void SendPlayerInformation(TeamID teamID, string name, string userName, int coinInGame)
     {
         List<string> cardIds = new List<string>();
         List<int> cardLevels = new List<int>();
@@ -89,7 +92,7 @@ public class SetupMatch : MonoBehaviour, IOnEventCallback
         string[] arrIds = cardIds.ToArray();
         int[] arrLevels = cardLevels.ToArray();
         
-        object[] content = new object[] {teamID, name, userName, arrIds, arrLevels};
+        object[] content = new object[] {teamID, name, userName, arrIds, arrLevels, coinInGame};
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All }; // You would have to set the Receivers to All in order to receive this event on the local client as well
         PhotonNetwork.RaiseEvent(PhotonEvent.OnSetOpponentInfomation, content, raiseEventOptions, SendOptions.SendReliable);
     }

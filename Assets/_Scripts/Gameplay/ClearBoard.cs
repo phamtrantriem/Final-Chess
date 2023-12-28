@@ -16,18 +16,6 @@ public class ClearBoard : MonoBehaviour, IOnEventCallback
     [SerializeField] private Slider _redHp;
     [SerializeField] private TMP_Text _blueHpTxt;
     [SerializeField] private TMP_Text _redHpTxt;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void OnEvent(EventData photonEvent)
     {
@@ -59,7 +47,6 @@ public class ClearBoard : MonoBehaviour, IOnEventCallback
             }
             else
             {
-                
                 PhotonNetwork.LeaveRoom();
                 SceneManager.LoadScene("Lose");
                 Destroy(BoardManager.instance.gameObject);
@@ -75,7 +62,6 @@ public class ClearBoard : MonoBehaviour, IOnEventCallback
         
         if (eventCode == PhotonEvent.OnAFK)
         {
-            
             PhotonNetwork.LeaveRoom();
             SceneManager.LoadScene("Lose");
             Destroy(BoardManager.instance.gameObject);
@@ -83,8 +69,6 @@ public class ClearBoard : MonoBehaviour, IOnEventCallback
             {
                 PhotonNetwork.CurrentRoom.IsOpen = false;
             }
-           
-
         }
     }
 
@@ -150,7 +134,6 @@ public class ClearBoard : MonoBehaviour, IOnEventCallback
         }
         else
         {
-
             TeamID winTeamID = (_blueHp.value <= 0) ? TeamID.Red : TeamID.Blue;
             
             if (PhotonNetwork.IsMasterClient)
@@ -163,7 +146,6 @@ public class ClearBoard : MonoBehaviour, IOnEventCallback
                 string loser = (winTeamID == TeamID.Red) ? MatchManager.instance.userBlue : MatchManager.instance.userRed;
                 SendMatchRequest(winner, loser);
             }
-            
         }
     }
 
@@ -174,14 +156,12 @@ public class ClearBoard : MonoBehaviour, IOnEventCallback
         if (response.success)
         {
             Debug.Log(response);
-
         }
         else
         {
             Debug.Log(response);
         }
     }
-    
     
     private async void SendplusGold(int gold)
     {
@@ -195,7 +175,6 @@ public class ClearBoard : MonoBehaviour, IOnEventCallback
             Debug.Log(response.message);
         }
     }
-    
     
     private void OnEnable()
     {

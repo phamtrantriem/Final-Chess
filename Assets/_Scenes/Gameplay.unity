@@ -28719,6 +28719,7 @@ MonoBehaviour:
   gameState: 1
   gamePlayState: 0
   round: 0
+  coinInGame: 0
   heroOnBoard: 0
   maxHeroOnBoard: 8
   selectPhaseTime: 30
@@ -31612,7 +31613,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _blueFullnameTxt: {fileID: 1986866107}
+  _blueCoinTxt: {fileID: 6941964079908548631}
   _redFullnameTxt: {fileID: 1336464081}
+  _redCoinTxt: {fileID: 638582518}
   _heroProfileConfigMap: {fileID: 11400000, guid: ec275fa2a9e3a794bb5489573e9ee6f9, type: 2}
 --- !u!4 &2069952088
 Transform:

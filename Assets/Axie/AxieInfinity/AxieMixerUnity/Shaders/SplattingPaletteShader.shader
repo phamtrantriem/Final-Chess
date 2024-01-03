@@ -9,7 +9,7 @@
 	}
 
 	SubShader {
-		Tags { "DisableBatching"="True" }
+		Tags { "DisableBatching"="False" }
 		Pass {
 			Cull Off
 			ZWrite Off

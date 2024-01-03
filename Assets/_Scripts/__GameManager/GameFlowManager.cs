@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 
 public class GameFlowManager : MonoSingleton<GameFlowManager>
 {
-    public bool isConnect =false;
+    public bool isConnect = false;
     public GameState gameState;
     public GamePlayState gamePlayState;
 

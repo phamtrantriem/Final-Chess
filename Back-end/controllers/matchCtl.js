@@ -71,7 +71,7 @@ const matchController = {
         },
         {
           $lookup: {
-            from: "users", // Assuming your users collection name is "users"
+            from: "users",
             localField: "_id",
             foreignField: "_id",
             as: "winnerData",
@@ -94,7 +94,6 @@ const matchController = {
           $limit: 10,
         },
       ]);
-      console.log({ data: req.userId });
       const selfRank = await Match.aggregate([
         {
           $match: {

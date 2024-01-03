@@ -4,9 +4,11 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ConnectToServer : MonoBehaviourPunCallbacks
 {
+    [SerializeField] Button loginBtn;
     void Start()
     {
         Debug.Log("Start");
@@ -24,6 +26,7 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
         //SceneManager.LoadScene("Lobby");
         Debug.Log("Join lobby");
         GameFlowManager.instance.isConnect = true;
+        loginBtn.interactable = GameFlowManager.instance.isConnect;
     }
     
     

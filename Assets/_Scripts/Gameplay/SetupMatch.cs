@@ -11,10 +11,12 @@ using UnityEngine;
 public class SetupMatch : MonoBehaviour, IOnEventCallback
 {
     [SerializeField] private TMP_Text _blueFullnameTxt;
+    [SerializeField] private TMP_Text _blueCoinTxt;
     [SerializeField] private TMP_Text _redFullnameTxt;
+    [SerializeField] private TMP_Text _redCoinTxt;
 
     [SerializeField] private HeroProfileConfigMap _heroProfileConfigMap;
-    
+
     private void OnEnable()
     {
         PhotonNetwork.AddCallbackTarget(this);
@@ -28,39 +30,42 @@ public class SetupMatch : MonoBehaviour, IOnEventCallback
     private void SetUpMatchInfomation()
     {
         GameFlowManager.instance.round = 0;
-        GameFlowManager.instance.coin = (GameFlowManager.instance.round + 1) * 2 > 12 ? 10 : (GameFlowManager.instance.round + 1) * 2;
         GameFlowManager.instance.heroOnBoard = 0;
-        
+        UserManager.instance.CoinInGame = 3;
+
         if (PhotonNetwork.IsMasterClient)
         {
             GameFlowManager.instance.playerTeam = TeamID.Blue;
             _blueFullnameTxt.text = UserManager.instance.fullName;
-            SendPlayerInformation(TeamID.Blue, UserManager.instance.fullName, UserManager.instance.username, UserManager.instance.CoinInGame += GameFlowManager.instance.coin);
+            SendPlayerInformation(TeamID.Blue, UserManager.instance.fullName, UserManager.instance.username);
         }
         else
         {
             GameFlowManager.instance.playerTeam = TeamID.Red;
             _redFullnameTxt.text = UserManager.instance.fullName;
-            SendPlayerInformation(TeamID.Red, UserManager.instance.fullName, UserManager.instance.username, UserManager.instance.CoinInGame += GameFlowManager.instance.coin);
+            SendPlayerInformation(TeamID.Red, UserManager.instance.fullName, UserManager.instance.username);
+
+            //UserManager.instance.CoinInGame += GameFlowManager.instance.coinInGame
         }
     }
-    
+
     void OnSetPlayerInfomation(EventData photonEvent)
     {
         object[] data = (object[])photonEvent.CustomData;
+        Debug.Log("photon event length: " + data.Length);
         TeamID teamID = (TeamID)data[0];
         string name = (string)data[1];
         string username = (string)data[2];
         string[] ids = (string[])data[3];
         int[] levels = (int[])data[4];
-        int coinInGame = (int)data[5];
-        
+
+
         if (teamID == TeamID.Blue)
         {
             _blueFullnameTxt.text = name;
             MatchManager.instance.userBlue = username;
+            _blueCoinTxt.text = "3";
 
-            
             for (int i = 0; i < ids.Length; i++)
             {
                 _heroProfileConfigMap.GetValueFromKey(ids[i]).HeroStats.BlueTeamLevel = levels[i];
@@ -70,7 +75,8 @@ public class SetupMatch : MonoBehaviour, IOnEventCallback
         {
             _redFullnameTxt.text = name;
             MatchManager.instance.userRed = username;
-            
+            _redCoinTxt.text = "3";
+
             for (int i = 0; i < ids.Length; i++)
             {
                 _heroProfileConfigMap.GetValueFromKey(ids[i]).HeroStats.RedTeamLevel = levels[i];
@@ -78,11 +84,11 @@ public class SetupMatch : MonoBehaviour, IOnEventCallback
         }
     }
 
-    private void SendPlayerInformation(TeamID teamID, string name, string userName, int coinInGame)
+    private void SendPlayerInformation(TeamID teamID, string name, string userName)
     {
         List<string> cardIds = new List<string>();
         List<int> cardLevels = new List<int>();
-        
+
         var configs = _heroProfileConfigMap.list;
         for (int i = 0; i < configs.Count; i++)
         {
@@ -91,12 +97,13 @@ public class SetupMatch : MonoBehaviour, IOnEventCallback
         }
         string[] arrIds = cardIds.ToArray();
         int[] arrLevels = cardLevels.ToArray();
-        
-        object[] content = new object[] {teamID, name, userName, arrIds, arrLevels, coinInGame};
-        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All }; // You would have to set the Receivers to All in order to receive this event on the local client as well
+
+        object[] content = new object[] { teamID, name, userName, arrIds, arrLevels };
+        // You would have to set the Receivers to All in order to receive this event on the local client as well
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All }; 
         PhotonNetwork.RaiseEvent(PhotonEvent.OnSetOpponentInfomation, content, raiseEventOptions, SendOptions.SendReliable);
     }
-    
+
     public void OnEvent(EventData photonEvent)
     {
         byte eventCode = photonEvent.Code;

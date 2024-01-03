@@ -58,7 +58,6 @@ public class Login : MonoBehaviour
         
         if (response.success)
         {
-            
             UserManager.instance.auth = response.accessToken;
             UserManager.instance.GetUserInfomation();
             SceneManager.LoadScene("Home");

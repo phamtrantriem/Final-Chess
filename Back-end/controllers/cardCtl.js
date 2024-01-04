@@ -71,6 +71,65 @@ const cardController = {
     }
   },
 
+  gachaCard: async (req, res) => {
+    function getRandomNumber(min, max) {
+      const randomDecimal = Math.random();
+      const randomNumber = Math.floor(randomDecimal * (max - min + 1)) + min;
+      return randomNumber;
+    }
+    const cost = 1000;
+    const user = await User.findOne({ _id: new Types.ObjectId(req.userId) });
+    if (!user?.gold || user?.gold < cost) {
+      return res.status(400).json({
+        success: false,
+        message: "Not enough gold",
+      });
+    }
+    try {
+      const randomCard = await Card.aggregate([
+        {
+          $match: {
+            user: new Types.ObjectId(req.userId),
+            $expr: { $lt: ["$level", "$maxlevel"] },
+          },
+        },
+        {
+          $sample: { size: 1 },
+        },
+      ]);
+      if (!randomCard?.[0]) {
+        return res.status(400).json({
+          success: false,
+          message: "All cards have reached their level limit",
+        });
+      }
+      const newCard = {
+        ...randomCard[0],
+        level: getRandomNumber(randomCard[0].level + 1, randomCard[0].maxlevel),
+      };
+      await Card.findOneAndUpdate(
+        { _id: randomCard[0] },
+        { level: newCard.level }
+      );
+      await User.findOneAndUpdate(
+        { _id: user._id },
+        { gold: user.gold - cost }
+      );
+      res.json({
+        success: true,
+        message: "Successed!",
+        oldCard: randomCard[0],
+        newCard: newCard,
+      });
+    } catch (error) {
+      console.log({ error });
+      res.status(500).json({
+        success: false,
+        message: "Internal server error",
+      });
+    }
+  },
+
   levelUpCard: async (req, res) => {
     const { id, cost } = req.body;
     try {

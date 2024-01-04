@@ -17,5 +17,6 @@ router.put("/levelup", verifyToken, cardController.levelUpCard);
 // @Update card
 // @access private
 router.get("/allcards", verifyToken, cardController.getall);
+router.post("/gacha", verifyToken, cardController.gachaCard);
 
 module.exports = router;

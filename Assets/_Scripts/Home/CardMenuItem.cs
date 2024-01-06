@@ -69,7 +69,7 @@ public class CardMenuItem : MonoBehaviour
             _costUpgrade.rectTransform.offsetMin = new Vector2(0, _costUpgrade.rectTransform.offsetMin.y);
         } else
         {
-            _costUpgrade.text = (100 * _heroConfig.HeroStats.Level).ToString();
+            _costUpgrade.text = (100 * _heroConfig.HeroStats.Level * _heroConfig.HeroStats.Rarity).ToString();
         }
         string levelTxt = _heroConfig.HeroStats.Level.ToString() +  "/"  + _heroConfig.HeroStats.MaxLevel.ToString();
         _level.text = levelTxt;

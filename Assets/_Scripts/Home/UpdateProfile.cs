@@ -68,7 +68,7 @@ public class UpdateProfile : MonoBehaviour
         }
         else
         {
-            Toast.instance.SetFail("Update fail!");
+            Toast.instance.SetFail(response.message);
         }
     }
 }

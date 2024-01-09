@@ -225,7 +225,7 @@ public class ApiRequest : MonoSingleton<ApiRequest>
         public UserResponseHandler user;
         public List<MatchResponseHandler> matches;
         public List<CardResponseHandler> cards;
-        public RankResponseHandler rank;
+        public List<RankResponseHandler> ranking;
     }
     
     public struct UserResponseHandler
@@ -250,17 +250,8 @@ public class ApiRequest : MonoSingleton<ApiRequest>
     public struct RankResponseHandler
     {
         public string _id;
-        public RankUserResponseHandler[] top10;
-        public int selfRank;
-        public int win;
-    }
-
-    public struct RankUserResponseHandler
-    {
-        public string _id;
-        public string fullName;
-        public int win;
-        public int rank;
+        public int count;
+        public UserResponseHandler userData;
     }
 
     public struct CardResponseHandler

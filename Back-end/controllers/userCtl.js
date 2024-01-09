@@ -26,11 +26,11 @@ const userController = {
       //Get user
       const user = await User.findOne({ userId: req.userId });
 
-      if (user.username != username) {
+/*      if (user.username != username) {
         return res
           .status(400)
           .json({ success: false, message: "Cannot change Username" });
-      }
+      }*/
 
       //all good
       let updatedUser = {
@@ -120,7 +120,8 @@ const userController = {
 
   get: async (req, res) => {
     try {
-      const user = await User.findOne({ userId: req.userId });
+      const user = await User.findOne({ _id: req.userId });
+      console.log({ req });
       return res.status(200).json({ success: true, user });
     } catch (err) {
       res.status(500).json(err.msg);

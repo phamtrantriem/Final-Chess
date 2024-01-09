@@ -25,15 +25,12 @@ public class CreateAndJointRoom : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.JoinRandomRoom();
     }
-
-
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         base.OnJoinRandomFailed(returnCode, message);
         Debug.Log(message);
         CreateAndJoinRoom();
     }
-    
     private void CreateAndJoinRoom()
     {
         string roomName = UserManager.instance.id;
@@ -43,12 +40,9 @@ public class CreateAndJointRoom : MonoBehaviourPunCallbacks
         roomOptions.IsVisible = true;
         roomOptions.MaxPlayers = 2;
         
-        
         PhotonNetwork.CreateRoom(roomName, roomOptions);
     }
-    
     public  override void OnJoinedRoom(){
-        //PhotonNetwork.LoadLevel("Game");
         Debug.Log(PhotonNetwork.CurrentRoom.Name);
         Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
         
@@ -56,10 +50,7 @@ public class CreateAndJointRoom : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.LoadLevel("Gameplay");
         }
-        //PhotonNetwork.LoadLevel("Gameplay");
-       
     }
-    
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         base.OnPlayerEnteredRoom(newPlayer);

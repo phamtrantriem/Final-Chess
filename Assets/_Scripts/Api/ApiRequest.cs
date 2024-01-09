@@ -15,10 +15,10 @@ public class ApiRequest : MonoSingleton<ApiRequest>
     //[SerializeField] private string baseUrl = "https://axie-tactic-back-end.herokuapp.com";
     
     //Vercel hope it will not down
-    [SerializeField] private string baseUrl = "https://axie-tactic-back-izul2gjs7-qq3154.vercel.app";
+    //[SerializeField] private string baseUrl = "https://axie-tactic-back-izul2gjs7-qq3154.vercel.app";
     
     //Local 
-    //[SerializeField] private string baseUrl = "http://localhost:5000";
+    [SerializeField] private string baseUrl = "http://localhost:5000";
 
     public async Task<ResponseHandler> SendLoginRequest(string username, string password)
     {
@@ -29,7 +29,6 @@ public class ApiRequest : MonoSingleton<ApiRequest>
         param.password = password;
         string json = JsonConvert.SerializeObject(param);
        
-        
         var result = await SendRequestAsync(url, json, UnityWebRequest.kHttpVerbPOST, false );
         return result;
     }
@@ -45,14 +44,13 @@ public class ApiRequest : MonoSingleton<ApiRequest>
         param.email = email;
         string json = JsonConvert.SerializeObject(param);
        
-        
         var result = await SendRequestAsync(url, json, UnityWebRequest.kHttpVerbPOST, false );
         return result;
     }
     
     public async Task<ResponseHandler>  SendGetUserProfileRequest()
     {
-        string url = baseUrl + "/api/user/";
+        string url = baseUrl + "/api/user/profile";
 
         var result = await SendRequestAsync(url, null, UnityWebRequest.kHttpVerbGET, true );
         return result;
@@ -98,13 +96,20 @@ public class ApiRequest : MonoSingleton<ApiRequest>
     
     public async Task<ResponseHandler>  SendGetMatchesRequest()
     {
-        string url = baseUrl + "/api/match/";
-        
+        string url = baseUrl + "/api/match/history";
         
         var result = await SendRequestAsync(url, null, UnityWebRequest.kHttpVerbGET, true );
         return result;
     }
-    
+
+    public async Task<ResponseHandler> SendGetRankRequest()
+    {
+        string url = baseUrl + "/api/match/ranking";
+
+        var result = await SendRequestAsync(url, null, UnityWebRequest.kHttpVerbGET, true);
+        return result;
+    }
+
     public async Task<ResponseHandler>  SendCreateMatchRequest(string winner, string loser, int round)
     {
         string url = baseUrl + "/api/match/create";
@@ -134,7 +139,7 @@ public class ApiRequest : MonoSingleton<ApiRequest>
     
     public async Task<ResponseHandler>  SendGetCardsRequest()
     {
-        string url = baseUrl + "/api/card/";
+        string url = baseUrl + "/api/card/allcards";
         
         var result = await SendRequestAsync(url, null, UnityWebRequest.kHttpVerbGET, true );
         return result;
@@ -157,7 +162,6 @@ public class ApiRequest : MonoSingleton<ApiRequest>
     {
 
         UnityWebRequest request= new UnityWebRequest(url, requestType);
-
 
         if (param != null)
         {
@@ -221,6 +225,7 @@ public class ApiRequest : MonoSingleton<ApiRequest>
         public UserResponseHandler user;
         public List<MatchResponseHandler> matches;
         public List<CardResponseHandler> cards;
+        public List<RankResponseHandler> ranking;
     }
     
     public struct UserResponseHandler
@@ -240,6 +245,13 @@ public class ApiRequest : MonoSingleton<ApiRequest>
         public UserResponseHandler loser;
         public int round;
         public string createAt;
+    }
+
+    public struct RankResponseHandler
+    {
+        public string _id;
+        public int count;
+        public UserResponseHandler userData;
     }
 
     public struct CardResponseHandler

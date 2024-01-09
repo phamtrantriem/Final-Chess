@@ -1,5 +1,5 @@
 const express = require("express");
-const { model } = require("mongoose");
+const { model, Types } = require("mongoose");
 const User = require("../models/User");
 const Match = require("../models/Match");
 
@@ -9,6 +9,8 @@ const matchController = {
     try {
       const winnerUser = await User.findOne({ username: winner });
       const loserUser = await User.findOne({ username: loser });
+      console.log({ winnerUser });
+      console.log({ loserUser });
 
       //   return res.json({
       //     winnerUsername,
@@ -23,8 +25,8 @@ const matchController = {
 
       const newMatch = new Match({
         round,
-        winner: winnerUser,
-        loser: loserUser,
+        winner: new Types.ObjectId(winnerUser._id),
+        loser: new Types.ObjectId(loserUser._id),
       });
       await newMatch.save();
 
@@ -40,14 +42,89 @@ const matchController = {
 
   getall: async (req, res) => {
     try {
-      const matches = await Match.find({ user: req.userId }).populate("user", [
-        "username",
+      const matches = await Match.find({
+        $or: [{ winner: req.userId }, { loser: req.userId }],
+      }).populate([
+        { path: "winner", strictPopulate: false },
+        { path: "loser", strictPopulate: false },
       ]);
       res.status(200).json({
         success: true,
         matches,
       });
     } catch (error) {
+      console.log({ error });
+      res.status(500).json({
+        success: false,
+        message: "Internal server error",
+      });
+    }
+  },
+  getRanking: async (req, res) => {
+    try {
+      const top10 = await Match.aggregate([
+        {
+          $group: {
+            _id: "$winner",
+            count: { $sum: 1 },
+          },
+        },
+        {
+          $lookup: {
+            from: "users",
+            localField: "_id",
+            foreignField: "_id",
+            as: "winnerData",
+          },
+        },
+        {
+          $unwind: "$winnerData",
+        },
+        {
+          $project: {
+            _id: 0,
+            userData: "$winnerData",
+            count: 1,
+          },
+        },
+        {
+          $sort: { count: -1 },
+        },
+        {
+          $limit: 10,
+        },
+      ]);
+      const selfRank = await Match.aggregate([
+        {
+          $match: {
+            winner: new Types.ObjectId(req.userId),
+          },
+        },
+        {
+          $group: {
+            _id: "$winner",
+            count: { $sum: 1 },
+          },
+        },
+        {
+          $lookup: {
+            from: "users",
+            localField: "_id",
+            foreignField: "_id",
+            as: "userData",
+          },
+        },
+        {
+          $unwind: "$userData",
+        },
+      ]);
+      res.status(200).json({
+        success: true,
+        ranking: top10,
+        self: selfRank?.[0],
+      });
+    } catch (error) {
+      console.log({ error });
       res.status(500).json({
         success: false,
         message: "Internal server error",

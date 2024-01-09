@@ -9,6 +9,9 @@ public class CardMenuItem : MonoBehaviour
 {
     [SerializeField] private TMP_Text _name;
     [SerializeField] private TMP_Text _level;
+    [SerializeField] private TMP_Text _costUpgrade;
+    [SerializeField] private GameObject _coinIcon;
+    [SerializeField] private GameObject _upgradeButton;
     [SerializeField] private List<GameObject> _stars;
 
     [SerializeField] private AxieSpawner _axieSpawner;
@@ -25,17 +28,19 @@ public class CardMenuItem : MonoBehaviour
 
     private void UpgradeCard()
     {
-        SendUpgradeCardRequest(_cardId, 100);
+        SendUpgradeCardRequest(_cardId, 100 * _heroConfig.HeroStats.Level * _heroConfig.HeroStats.Rarity);
     }
 
     public async void SendUpgradeCardRequest(string id, int cost)
     {
+        Debug.Log("User.gold: " + UserManager.instance.gold + " == Cost to upgrade: " + cost);
         var response = await ApiRequest.instance.SendUpgradeCardRequest(id, cost);
         if (response.success)
         {
             _heroConfig.HeroStats.Level += 1; 
             string levelTxt = _heroConfig.HeroStats.Level.ToString() +  "/"  + _heroConfig.HeroStats.MaxLevel.ToString();
             _level.text = levelTxt;
+            _costUpgrade.text = (100 * _heroConfig.HeroStats.Level * _heroConfig.HeroStats.Rarity).ToString();
             UserManager.instance.gold -= cost;
             ToastMessage.instance.Show("Upgrade successful!");
         }
@@ -55,6 +60,17 @@ public class CardMenuItem : MonoBehaviour
         var rarity = _heroConfig.HeroStats.Rarity;
         SetStar(rarity);
         _name.text = _heroConfig.HeroStats.Name;
+        if (_heroConfig.HeroStats.Level == _heroConfig.HeroStats.MaxLevel)
+        {
+            _costUpgrade.text = "Max Level";
+            _costUpgrade.GetComponent<TextMeshProUGUI>().color = new Color(206, 255, 172, 255);
+            //_upgradeBtn.GetComponent<Image>().color = new Color(173, 183, 241, 255);
+            _coinIcon.SetActive(false);
+            _costUpgrade.rectTransform.offsetMin = new Vector2(0, _costUpgrade.rectTransform.offsetMin.y);
+        } else
+        {
+            _costUpgrade.text = (100 * _heroConfig.HeroStats.Level * _heroConfig.HeroStats.Rarity).ToString();
+        }
         string levelTxt = _heroConfig.HeroStats.Level.ToString() +  "/"  + _heroConfig.HeroStats.MaxLevel.ToString();
         _level.text = levelTxt;
     }

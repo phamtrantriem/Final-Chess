@@ -17,6 +17,9 @@ public class HeroHUD : MonoBehaviour
     [SerializeField] private Image _hpImage;
     [SerializeField] private Sprite _redBar;
 
+    [SerializeField] private GameObject _tooltip;
+    [SerializeField] private TMP_Text _descriptionTxt;
+
     public void SetLevel(int level)
     {
         _levelTxt.text = level.ToString();
@@ -56,6 +59,23 @@ public class HeroHUD : MonoBehaviour
         _manaSlider.DOValue(mana, 0.5f);
     }
     
+    public void SetHeroAttribute(HeroStats _stats)
+    {
+        _tooltip.SetActive(false);
+        _descriptionTxt.text = "Name: " + _stats.Name + "\n"
+            + "Damage: " + _stats.Dmg + "\n"
+            + "HP: " + _stats.Hp + "\n"
+            + "Class: " + _stats.Class + "\n"
+            + "Species: " + _stats.Species + "\n";
+    }
 
-    
+    public void OnOpenTooltip()
+    {
+        _tooltip.SetActive(true);
+    }
+    public void OnCloseTooltip()
+    {
+        _tooltip.SetActive(false);
+    }
+
 }

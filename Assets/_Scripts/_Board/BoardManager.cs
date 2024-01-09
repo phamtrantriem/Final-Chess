@@ -1,17 +1,11 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using ExitGames.Client.Photon;
-using JetBrains.Annotations;
 using Observer;
 using Photon.Pun;
-using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
-using Spine.Unity.Examples;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class BoardManager : MonoSingleton<BoardManager>, IOnEventCallback
 {
@@ -229,7 +223,6 @@ public class BoardManager : MonoSingleton<BoardManager>, IOnEventCallback
             hero.PosX = heroRecord.posX;
             hero.PosY = heroRecord.posY;
             
-        
             if (!PlayerOnBoard(heroRecord.teamID).Contains(hero))
             {
                 PlayerOnBoard(heroRecord.teamID).Add(hero);

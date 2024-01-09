@@ -7,37 +7,37 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
 const authController = {
-  register: async (req, res) => {
-    const { username, password, fullName, email, role, gold } = req.body;
-    if (!username) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Missing username" });
-    }
-    if (!password) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Missing password" });
-    }
-    if (!fullName) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Missing fullName" });
-    }
-    if (!email) {
-      return res.status(400).json({ success: false, message: "Missing email" });
-    }
-    if (!role) {
-      return res.status(400).json({ success: false, message: "Missing role" });
-    }
-    try {
-      //check for username already exists
-      const user = await User.findOne({ username });
-      if (user) {
-        return res
-          .status(400)
-          .json({ success: false, message: "username already exists" });
-      }
+    register: async (req, res) => {
+        const { username, password, fullName, email, gold } = req.body;
+        if (!username) {
+            return res
+                .status(400)
+                .json({ success: false, message: "Missing username" });
+        }
+        if (!password) {
+            return res
+                .status(400)
+                .json({ success: false, message: "Missing password" });
+        }
+        if (!fullName) {
+            return res
+                .status(400)
+                .json({ success: false, message: "Missing fullName" });
+        }
+        if (!email) {
+            return res.status(400).json({ success: false, message: "Missing email" });
+        }
+    //     //if (!role) {
+    //     //  return res.status(400).json({ success: false, message: "Missing role" });
+    //     //}
+        try {
+            //check for username already exists
+            const user = await User.findOne({ username });
+            if (user) {
+                return res
+                    .status(400)
+                    .json({ success: false, message: "username already exists" });
+            }
 
       //all good
       const hashesPassword = await argon2.hash(password);
@@ -46,7 +46,7 @@ const authController = {
         password: hashesPassword,
         fullName,
         email,
-        role,
+        role: "1",
         gold,
       });
       await newUser.save();
@@ -62,38 +62,40 @@ const authController = {
         accessToken,
       });
     } catch (err) {
+      console.log(err);
       res.status(500).json(err.msg);
     }
   },
 
-  login: async (req, res) => {
-    const { username, password } = req.body;
+    login: async (req, res) => {
+        const { username, password } = req.body;
 
-    //validate
-    if (!username || !password) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Missing username/password" });
-    }
-    try {
-      //Check for existing user
-      const user = await User.findOne({ username });
-      if (!user) {
-        return res
-          .status(400)
-          .json({ success: false, message: "Incorect username/password" });
-      }
+        //validate
+        if (!username || !password) {
+            return res
+                .status(400)
+                .json({ success: false, message: "Missing username/password" });
+        }
+        try {
+            //Check for existing user
+            const user = await User.findOne({ username });
+            if (!user) {
+                return res
+                    .status(400)
+                    .json({ success: false, message: "Incorect username/password" });
+            }
 
-      //Username found
-      const passwordValid = await argon2.verify(user.password, password);
-      if (!passwordValid) {
-        return res
-          .status(400)
-          .json({ success: false, message: "Incorect username/password" });
-      }
+            //Username found
+            const passwordValid = await argon2.verify(user.password, password);
+            if (!passwordValid) {
+                return res
+                    .status(400)
+                    .json({ success: false, message: "Incorect username/password" });
+            }
 
       //All good
       //return token
+      console.log({ user });
       const accessToken = jwt.sign(
         { userId: user._id },
         process.env.ACCESS_TOKEN_SECRET

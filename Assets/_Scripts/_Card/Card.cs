@@ -29,8 +29,9 @@ public class Card : MonoBehaviour, IOnEventCallback
     [SerializeField] private TMP_Text _specieTxt;
     [SerializeField] private Image _classIcon;
     [SerializeField] private TMP_Text _classTxt;
+    [SerializeField] private TMP_Text _costTxt;
     [SerializeField] private Image _darkBG;
-    
+
     [Header("Ref")]
     [SerializeField] private HeroProfileConfigMap _heroProfileConfigMap;
     [SerializeField] private ClassesIconConfig _classesIconConfig;
@@ -74,6 +75,7 @@ public class Card : MonoBehaviour, IOnEventCallback
         _classTxt.text = heroStats.Class;
         _specieIcon.sprite = _classesIconConfig.GetIconById(heroStats.Species);
         _classIcon.sprite = _classesIconConfig.GetIconById(heroStats.Class);
+        _costTxt.text = (heroStats.Rarity * 2).ToString();
     }
 
     private void SetStar(int count)

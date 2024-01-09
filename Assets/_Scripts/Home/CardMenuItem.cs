@@ -28,7 +28,7 @@ public class CardMenuItem : MonoBehaviour
 
     private void UpgradeCard()
     {
-        SendUpgradeCardRequest(_cardId, 100 * _heroConfig.HeroStats.Level);
+        SendUpgradeCardRequest(_cardId, 100 * _heroConfig.HeroStats.Level * _heroConfig.HeroStats.Rarity);
     }
 
     public async void SendUpgradeCardRequest(string id, int cost)
@@ -40,7 +40,7 @@ public class CardMenuItem : MonoBehaviour
             _heroConfig.HeroStats.Level += 1; 
             string levelTxt = _heroConfig.HeroStats.Level.ToString() +  "/"  + _heroConfig.HeroStats.MaxLevel.ToString();
             _level.text = levelTxt;
-            _costUpgrade.text = (100 * _heroConfig.HeroStats.Level).ToString();
+            _costUpgrade.text = (100 * _heroConfig.HeroStats.Level * _heroConfig.HeroStats.Rarity).ToString();
             UserManager.instance.gold -= cost;
             ToastMessage.instance.Show("Upgrade successful!");
         }

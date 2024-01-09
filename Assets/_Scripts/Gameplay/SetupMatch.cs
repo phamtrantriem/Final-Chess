@@ -17,6 +17,7 @@ public class SetupMatch : MonoBehaviour, IOnEventCallback
 
     [SerializeField] private HeroProfileConfigMap _heroProfileConfigMap;
 
+    private int startCoin = 2;
     private void OnEnable()
     {
         PhotonNetwork.AddCallbackTarget(this);
@@ -31,7 +32,6 @@ public class SetupMatch : MonoBehaviour, IOnEventCallback
     {
         GameFlowManager.instance.round = 0;
         GameFlowManager.instance.heroOnBoard = 0;
-        UserManager.instance.CoinInGame = 3;
 
         if (PhotonNetwork.IsMasterClient)
         {
@@ -64,7 +64,8 @@ public class SetupMatch : MonoBehaviour, IOnEventCallback
         {
             _blueFullnameTxt.text = name;
             MatchManager.instance.userBlue = username;
-            _blueCoinTxt.text = "3";
+            MatchManager.instance.userBlueCoin = startCoin;
+            _blueCoinTxt.text = MatchManager.instance.userBlueCoin.ToString();
 
             for (int i = 0; i < ids.Length; i++)
             {
@@ -75,7 +76,9 @@ public class SetupMatch : MonoBehaviour, IOnEventCallback
         {
             _redFullnameTxt.text = name;
             MatchManager.instance.userRed = username;
-            _redCoinTxt.text = "3";
+
+            MatchManager.instance.userRedCoin = startCoin;
+            _redCoinTxt.text = MatchManager.instance.userRedCoin.ToString();
 
             for (int i = 0; i < ids.Length; i++)
             {

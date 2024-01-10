@@ -11,7 +11,9 @@ public class SetupOnRoundStart : MonoBehaviour, IOnEventCallback
 {
     [SerializeField] private TMP_Text roundTxt;
     [SerializeField] private TMP_Text heroOnBoardTxt;
-    
+
+    [SerializeField] private TMP_Text blueCoinTxt;
+    [SerializeField] private TMP_Text redCoinTxt;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +43,10 @@ public class SetupOnRoundStart : MonoBehaviour, IOnEventCallback
         if (eventCode == PhotonEvent.OnSelectCardPhaseStart)
         {
             GameFlowManager.instance.round++;
+            MatchManager.instance.userBlueCoin += (GameFlowManager.instance.round > 5 ? 10 : GameFlowManager.instance.round * 2);
+            blueCoinTxt.text = MatchManager.instance.userBlueCoin.ToString();
+            MatchManager.instance.userRedCoin += (GameFlowManager.instance.round > 5 ? 10 : GameFlowManager.instance.round * 2);
+            redCoinTxt.text = MatchManager.instance.userRedCoin.ToString();
             GameFlowManager.instance.heroOnBoard = Mathf.Min( GameFlowManager.instance.round, GameFlowManager.instance.maxHeroOnBoard);
             roundTxt.text = "Round " + GameFlowManager.instance.round;
             heroOnBoardTxt.text = "5/" + GameFlowManager.instance.heroOnBoard;

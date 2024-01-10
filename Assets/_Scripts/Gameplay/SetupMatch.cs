@@ -17,7 +17,7 @@ public class SetupMatch : MonoBehaviour, IOnEventCallback
 
     [SerializeField] private HeroProfileConfigMap _heroProfileConfigMap;
 
-    private int startCoin = 2;
+    private int startCoin = 0;
     private void OnEnable()
     {
         PhotonNetwork.AddCallbackTarget(this);

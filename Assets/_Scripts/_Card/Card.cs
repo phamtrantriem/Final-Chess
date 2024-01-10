@@ -118,9 +118,23 @@ public class Card : MonoBehaviour, IOnEventCallback
         object[] data = (object[])photonEvent.CustomData;
         int id = (int)data[0];
         TeamID teamID = (TeamID)data[1];
+        int cost = int.Parse(_costTxt.text);
         if (id == this._id)
         {
-            BoardManager.instance.AddHero(teamID, _heroID, this);
+            if (teamID == TeamID.Blue && MatchManager.instance.userBlueCoin > cost)
+            {
+                BoardManager.instance.AddHero(teamID, _heroID, this, int.Parse(_costTxt.text));
+                MatchManager.instance.userBlueCoin -= cost;
+                SetInteractable(true);
+            }
+            else if (teamID == TeamID.Red && MatchManager.instance.userRedCoin > cost)
+            {
+                BoardManager.instance.AddHero(teamID, _heroID, this, int.Parse(_costTxt.text));
+                MatchManager.instance.userRedCoin -= cost;
+                SetInteractable(true);
+            }
+            else
+                Toast.instance.SetFail("Not enough coin");
         }
     }
 }

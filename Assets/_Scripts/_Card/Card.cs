@@ -29,8 +29,9 @@ public class Card : MonoBehaviour, IOnEventCallback
     [SerializeField] private TMP_Text _specieTxt;
     [SerializeField] private Image _classIcon;
     [SerializeField] private TMP_Text _classTxt;
+    [SerializeField] private TMP_Text _costTxt;
     [SerializeField] private Image _darkBG;
-    
+
     [Header("Ref")]
     [SerializeField] private HeroProfileConfigMap _heroProfileConfigMap;
     [SerializeField] private ClassesIconConfig _classesIconConfig;
@@ -74,6 +75,7 @@ public class Card : MonoBehaviour, IOnEventCallback
         _classTxt.text = heroStats.Class;
         _specieIcon.sprite = _classesIconConfig.GetIconById(heroStats.Species);
         _classIcon.sprite = _classesIconConfig.GetIconById(heroStats.Class);
+        _costTxt.text = (heroStats.Rarity * 2).ToString();
     }
 
     private void SetStar(int count)
@@ -116,9 +118,29 @@ public class Card : MonoBehaviour, IOnEventCallback
         object[] data = (object[])photonEvent.CustomData;
         int id = (int)data[0];
         TeamID teamID = (TeamID)data[1];
+        int cost = int.Parse(_costTxt.text);
         if (id == this._id)
         {
-            BoardManager.instance.AddHero(teamID, _heroID, this);
+            Debug.Log("BlueTeam : " + MatchManager.instance.userBlueCoin + " || " + cost);
+            Debug.Log("RedTeam : " + MatchManager.instance.userRedCoin + " || " + cost);
+
+            if (teamID == TeamID.Blue )
+            {
+                if (MatchManager.instance.userBlueCoin >= cost)
+                {
+                    BoardManager.instance.AddHero(teamID, _heroID, this, int.Parse(_costTxt.text));
+                    SetInteractable(true);
+                }
+            }
+
+            if (teamID == TeamID.Red)
+            {
+                if (MatchManager.instance.userRedCoin >= cost)
+                {
+                    BoardManager.instance.AddHero(teamID, _heroID, this, int.Parse(_costTxt.text));
+                    SetInteractable(true);
+                }
+            }
         }
     }
 }

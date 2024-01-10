@@ -132,17 +132,15 @@ public class Hero : MonoBehaviour
                     PhotonNetwork.RaiseEvent(PhotonEvent.OnRoundEnd, content, raiseEventOptions, SendOptions.SendReliable);
                 }
             }
-            
-          
         }
-        
-       
-      
-        
-       
-        
     }
-
+    public void SellHero()
+    {
+        if (UserManager.instance.TeamID == TeamID)
+        {
+            BoardManager.instance.SellHero(this, TeamID);
+        }
+    }
 }
 
 public enum TeamID

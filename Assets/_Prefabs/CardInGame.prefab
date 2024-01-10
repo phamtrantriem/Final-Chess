@@ -1406,7 +1406,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -9.3, y: -10}
-  m_SizeDelta: {x: 44.3734, y: 30}
+  m_SizeDelta: {x: 55.4718, y: 30}
   m_Pivot: {x: 1, y: 1}
 --- !u!1 &4803247428939256244
 GameObject:
@@ -2960,7 +2960,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 20.9214, y: 30}
+  m_SizeDelta: {x: 32.9446, y: 30}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &155690062788139082
 CanvasRenderer:
@@ -2990,7 +2990,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1
+  m_text: 10
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc2cc93475f76427c86a8262bee36b88, type: 2}
   m_sharedMaterial: {fileID: 2269793554123077917, guid: dc2cc93475f76427c86a8262bee36b88, type: 2}

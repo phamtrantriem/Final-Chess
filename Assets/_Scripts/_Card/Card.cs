@@ -121,20 +121,26 @@ public class Card : MonoBehaviour, IOnEventCallback
         int cost = int.Parse(_costTxt.text);
         if (id == this._id)
         {
-            if (teamID == TeamID.Blue && MatchManager.instance.userBlueCoin > cost)
+            Debug.Log("BlueTeam : " + MatchManager.instance.userBlueCoin + " || " + cost);
+            Debug.Log("RedTeam : " + MatchManager.instance.userRedCoin + " || " + cost);
+
+            if (teamID == TeamID.Blue )
             {
-                BoardManager.instance.AddHero(teamID, _heroID, this, int.Parse(_costTxt.text));
-                MatchManager.instance.userBlueCoin -= cost;
-                SetInteractable(true);
+                if (MatchManager.instance.userBlueCoin >= cost)
+                {
+                    BoardManager.instance.AddHero(teamID, _heroID, this, int.Parse(_costTxt.text));
+                    SetInteractable(true);
+                }
             }
-            else if (teamID == TeamID.Red && MatchManager.instance.userRedCoin > cost)
+
+            if (teamID == TeamID.Red)
             {
-                BoardManager.instance.AddHero(teamID, _heroID, this, int.Parse(_costTxt.text));
-                MatchManager.instance.userRedCoin -= cost;
-                SetInteractable(true);
+                if (MatchManager.instance.userRedCoin >= cost)
+                {
+                    BoardManager.instance.AddHero(teamID, _heroID, this, int.Parse(_costTxt.text));
+                    SetInteractable(true);
+                }
             }
-            else
-                Toast.instance.SetFail("Not enough coin");
         }
     }
 }

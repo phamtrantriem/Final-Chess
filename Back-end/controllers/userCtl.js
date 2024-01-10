@@ -8,7 +8,7 @@ const User = require("../models/User");
 
 const userController = {
   updateProfile: async (req, res) => {
-    const { username, fullName, email } = req.body;
+    const { username, fullName, email, avatar } = req.body;
     if (!username) {
       return res
         .status(400)
@@ -26,11 +26,11 @@ const userController = {
       //Get user
       const user = await User.findOne({ userId: req.userId });
 
-/*      if (user.username != username) {
-        return res
-          .status(400)
-          .json({ success: false, message: "Cannot change Username" });
-      }*/
+      /*      if (user.username != username) {
+              return res
+                .status(400)
+                .json({ success: false, message: "Cannot change Username" });
+            }*/
 
       //all good
       let updatedUser = {
@@ -38,6 +38,9 @@ const userController = {
         fullName,
         email,
       };
+      if (avatar) {
+        updatedUser = { ...updatedUser, avatar }
+      }
 
       const userUpdateCondition = { _id: req.userId };
       updatedUser = await User.findOneAndUpdate(

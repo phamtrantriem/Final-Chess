@@ -11,9 +11,6 @@ public class LeaderboardMenu : MonoBehaviour
     [SerializeField] private TMP_Text _rankTxt;
     [SerializeField] private TMP_Text _winMatchTxt;
 
-    private int _selfRank;
-    private int _winMatch;
-    
     // Start is called before the first frame update
     void Start()
     {
@@ -24,28 +21,32 @@ public class LeaderboardMenu : MonoBehaviour
     private async void SendGetRank(){
         
         var response = await ApiRequest.instance.SendGetRankRequest();
-        
+        _rankTxt.text = "NaN";
+        _winMatchTxt.text = "NaN";
         if (response.success)
         {
-            _selfRank = response.rank.selfRank;
-            foreach (var user in response.rank.top10)
+            int index = 1;
+            foreach (var rank in response.ranking)
             {
-                bool yours = user._id == UserManager.instance.id;
+                bool yours = rank.userData._id == UserManager.instance.id;
+                string name = rank.userData.fullName;
+                int _winMatch = rank.count;
 
-                string name = user.fullName;
                 var rankItem = Instantiate(_leaderboardMenuItemPref, _rankViewHolder.transform);
-
-                rankItem.InitData(name, user.win, user.rank, yours);
+                rankItem.InitData(name, rank.count, index, yours);
                 rankItem.gameObject.SetActive(true);
+                
+                if (yours)
+                {
+                    _rankTxt.text = index.ToString();
+                    _winMatchTxt.text = _winMatch.ToString();
+                }
+                index++;
             }
-
-            _rankTxt.text = _selfRank.ToString();
-            _winMatchTxt.text = _winMatch.ToString();
-            
         }
         else
         {
-            Debug.Log(response);
+            Debug.Log(response.message);
         }
     }
 

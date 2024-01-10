@@ -18,32 +18,32 @@ public class LeaderboardMenuItem : MonoBehaviour
 
     public void InitData(string username, int win, int rank, bool yours)
     {
-        switch (win)
+        if (rank == 1)
         {
-            case 1:
-                _rank1.SetActive(true);
-                _rank2.SetActive(false);
-                _rank3.SetActive(false);
-                _rankN.SetActive(false);
-                break;
-            case 2:
-                _rank1.SetActive(false);
-                _rank2.SetActive(true);
-                _rank3.SetActive(false);
-                _rankN.SetActive(false);
-                break;
-            case 3:
-                _rank1.SetActive(false);
-                _rank2.SetActive(false);
-                _rank3.SetActive(true);
-                _rankN.SetActive(false);
-                break;
-            case 4:
-                _top3.SetActive(false);
-                _rankN.SetActive(true);
-                break;
+            _top3.SetActive(true);
+            _rank1.SetActive(true);
+            _rank2.SetActive(false);
+            _rank3.SetActive(false);
+            _rankN.SetActive(false);
+        } else if (rank == 2)
+        {
+            _top3.SetActive(true);
+            _rank1.SetActive(false);
+            _rank2.SetActive(true);
+            _rank3.SetActive(false);
+            _rankN.SetActive(false);
+        } else if (rank == 3)
+        {
+            _top3.SetActive(true);
+            _rank1.SetActive(false);
+            _rank2.SetActive(false);
+            _rank3.SetActive(true);
+            _rankN.SetActive(false);
+        } else
+        {
+            _top3.SetActive(false);
+            _rankN.SetActive(true);
         }
-
         _nameTxt.text = username;
         _winTxt.text = "Win: " + win.ToString();
         _iconYours.SetActive(yours);

@@ -25,6 +25,7 @@ public class Toast : MonoSingleton<Toast>
     public void SetWaiting()
     {
         GetCamera();
+        _canvas.sortingOrder = 100;
         _bg.gameObject.SetActive(true);
         wating.SetActive(true);
         success.SetActive(false);
@@ -34,6 +35,7 @@ public class Toast : MonoSingleton<Toast>
     public void SetSuccess(string msg = null)
     {
         GetCamera();
+        _canvas.sortingOrder = 100;
         _bg.gameObject.SetActive(true);
         wating.SetActive(false);
         success.SetActive(true);
@@ -44,6 +46,7 @@ public class Toast : MonoSingleton<Toast>
     public void SetFail(string msg = null)
     {
         GetCamera();
+        _canvas.sortingOrder = 100;
         _bg.gameObject.SetActive(true);
         wating.SetActive(false);
         success.SetActive(false);

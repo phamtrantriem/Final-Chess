@@ -47,7 +47,7 @@ const matchController = {
       }).populate([
         { path: "winner", strictPopulate: false },
         { path: "loser", strictPopulate: false },
-      ]);
+      ]).sort({ "createAt": -1 });
       res.status(200).json({
         success: true,
         matches,

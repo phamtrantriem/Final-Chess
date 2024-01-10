@@ -37,12 +37,14 @@ public class SetupMatch : MonoBehaviour, IOnEventCallback
         {
             GameFlowManager.instance.playerTeam = TeamID.Blue;
             _blueFullnameTxt.text = UserManager.instance.fullName;
+            UserManager.instance.TeamID = TeamID.Blue;
             SendPlayerInformation(TeamID.Blue, UserManager.instance.fullName, UserManager.instance.username);
         }
         else
         {
             GameFlowManager.instance.playerTeam = TeamID.Red;
             _redFullnameTxt.text = UserManager.instance.fullName;
+            UserManager.instance.TeamID = TeamID.Red;
             SendPlayerInformation(TeamID.Red, UserManager.instance.fullName, UserManager.instance.username);
 
             //UserManager.instance.CoinInGame += GameFlowManager.instance.coinInGame

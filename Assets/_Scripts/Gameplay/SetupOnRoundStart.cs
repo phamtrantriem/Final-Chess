@@ -34,6 +34,7 @@ public class SetupOnRoundStart : MonoBehaviour, IOnEventCallback
             {
                 heroOnBoardTxt.text = BoardManager.instance._onBoardB.Count + "/" + GameFlowManager.instance.heroOnBoard;
             }
+            
         }
     }
 

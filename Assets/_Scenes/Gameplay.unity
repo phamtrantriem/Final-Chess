@@ -12459,6 +12459,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 837900265}
+  - component: {fileID: 837900268}
   - component: {fileID: 837900264}
   - component: {fileID: 837900266}
   - component: {fileID: 837900267}
@@ -12476,7 +12477,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 837900263}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b98346fdd4395514da61368c58edac0e, type: 3}
   m_Name: 
@@ -12562,6 +12563,52 @@ MonoBehaviour:
   _redHp: {fileID: 1383509896}
   _blueHpTxt: {fileID: 1298971255}
   _redHpTxt: {fileID: 1374395547}
+--- !u!114 &837900268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 837900263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b98346fdd4395514da61368c58edac0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontDestroyThisObject: 1
+  _X: 8
+  _Y: 8
+  _IsLock: 0
+  _IsEnd: 0
+  _onBoardA: []
+  _onBoardB: []
+  _benchA: []
+  _benchB: []
+  _benchSlotA:
+  - {fileID: 714181042}
+  - {fileID: 711370291}
+  - {fileID: 1502308100}
+  - {fileID: 22976344}
+  - {fileID: 2107616529}
+  - {fileID: 876143815}
+  - {fileID: 2003172629}
+  - {fileID: 209590387}
+  _benchSlotB:
+  - {fileID: 540907659}
+  - {fileID: 1630892028}
+  - {fileID: 406688698}
+  - {fileID: 472533884}
+  - {fileID: 1647976686}
+  - {fileID: 682011389}
+  - {fileID: 1581746991}
+  - {fileID: 1976849601}
+  _HeroRecords: []
+  _currentSelectA: {fileID: 0}
+  _currentSelectB: {fileID: 0}
+  _blueCoinTxt: {fileID: 6941964079908548631}
+  _redCoinTxt: {fileID: 638582518}
+  _fightBoardRoot: {fileID: 837900263}
+  _heroPref: {fileID: 4624320821420310582, guid: c8bcbdde0954d73478b55d336d7baa08, type: 3}
 --- !u!1 &842897699
 GameObject:
   m_ObjectHideFlags: 0

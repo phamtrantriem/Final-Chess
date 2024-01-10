@@ -63,12 +63,12 @@ public class SelectCardBoard : MonoBehaviour, IOnEventCallback
         }
         else
         {
-            _heroPool = _heroPools[_heroPools.Count].heroId;
+            _heroPool = _heroPools[_heroPools.Count - 1].heroId;
         }
         
         // _randomCards.Clear();
         List<string> cardIds = new List<string>();
-        for (int i = 0; i < _maxCardToSelect * 2; i++)
+        for (int i = 0; i < _maxCardToSelect; i++)
         {
             int index = Random.Range(0,_heroPool.Count);
             string heroID = _heroPool[index];

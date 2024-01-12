@@ -5,6 +5,7 @@ using ExitGames.Client.Photon;
 using Observer;
 using Photon.Pun;
 using Photon.Realtime;
+using TMPro;
 using UnityEngine;
 
 public class BoardManager : MonoSingleton<BoardManager>, IOnEventCallback
@@ -35,7 +36,10 @@ public class BoardManager : MonoSingleton<BoardManager>, IOnEventCallback
 
     public Hero _currentSelectA;
     public Hero _currentSelectB;
-    
+
+    [SerializeField] private TMP_Text _blueCoinTxt;
+    [SerializeField] private TMP_Text _redCoinTxt;
+
     public GameObject _fightBoardRoot;
     [SerializeField] private GameObject _heroPref;
     
@@ -267,8 +271,12 @@ public class BoardManager : MonoSingleton<BoardManager>, IOnEventCallback
     
     
 
-    public void AddHero(TeamID teamID, string heroID, Card card)
+    public void AddHero(TeamID teamID, string heroID, Card card, int cost)
     {
+        // Minus coin of team
+        MinusCoinAfterBoughtHero(teamID, cost);
+
+        // process to add new hero
         List<BenchSlot> benchSlots = PlayerBenchSlot(teamID);
         List<Hero> heroOnBoards = PlayerOnBoard(teamID);
         List<Hero> heroOnBenchs = PlayerBench(teamID);
@@ -317,7 +325,7 @@ public class BoardManager : MonoSingleton<BoardManager>, IOnEventCallback
         //update 3 star
         if (oneStarHeros.Count == 2 && twoStarHeros.Count == 2)
         {
-            card.SetInteractable(false);
+            //card.SetInteractable(false);
             
             //find a 2star hero on board
             foreach (var hero in twoStarHeros)
@@ -398,7 +406,7 @@ public class BoardManager : MonoSingleton<BoardManager>, IOnEventCallback
         //update 2 star
         if (oneStarHeros.Count == 2)
         {
-            card.SetInteractable(false);
+            //card.SetInteractable(false);
             
             //find a 1 star hero on board
             foreach (var hero in oneStarHeros)
@@ -464,7 +472,7 @@ public class BoardManager : MonoSingleton<BoardManager>, IOnEventCallback
                     myHero.PosX = -2;
                     myHero.PosY = i;
                 }
-                card.SetInteractable(false);
+                //card.SetInteractable(false);
                 slot.SetHero(myHero);
                 heroOnBenchs.Add(myHero);
                 return;
@@ -474,6 +482,29 @@ public class BoardManager : MonoSingleton<BoardManager>, IOnEventCallback
         //noti bench is full
         Debug.Log(teamID + " bench full");
         
+    }
+
+    void MinusCoinAfterBoughtHero(TeamID teamID, int cost)
+    {
+        switch (teamID)
+        {
+            case TeamID.Blue:
+                MatchManager.instance.userBlueCoin -= cost;
+                _blueCoinTxt.text = MatchManager.instance.userBlueCoin.ToString();
+                break;
+            case TeamID.Red:
+                MatchManager.instance.userRedCoin -= cost;
+                _redCoinTxt.text = MatchManager.instance.userRedCoin.ToString();
+                break;
+        }
+    }
+
+    public void DeleteHero(Hero hero, TeamID teamID)
+    {
+        List<BenchSlot> benchSlots = PlayerBenchSlot(teamID);
+        List<Hero> heroOnBoards = PlayerOnBoard(teamID);
+        List<Hero> heroOnBenchs = PlayerBench(teamID);
+        RemoveHero(hero, benchSlots, heroOnBoards, heroOnBenchs);
     }
 
     void RemoveHero(Hero hero, List<BenchSlot> benchSlots, List<Hero> heroOnBoards, List<Hero> heroOnBenchs)
@@ -640,11 +671,11 @@ public class BoardManager : MonoSingleton<BoardManager>, IOnEventCallback
 
     public List<Hero> AllHeroes()
     {
-        List<Hero> ans = new List<Hero>();  
-       
-        
-         ans = _onBoardA.Concat(_onBoardB).ToList();
-         return ans;
+        return _onBoardA.Concat(_onBoardB).ToList();
+    }    
+    public List<Hero> AllHeroesBench()
+    {
+        return _benchA.Concat(_benchA).ToList();
     }
 
     public Hero GetHeroByPosition(int x, int y)

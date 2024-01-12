@@ -34,6 +34,7 @@ public class Hero : MonoBehaviour
     [SerializeField] public HeroHUD _heroHUD;
     [SerializeField] public HeroVFXController _heroVFXController;
     [SerializeField] public HeroBT _heroBT;
+    [SerializeField] public GameObject _deleteBtn;
     
     [Header("Profile Config")]
     [SerializeField] private HeroProfileConfigMap _heroProfileConfigMap;
@@ -132,17 +133,15 @@ public class Hero : MonoBehaviour
                     PhotonNetwork.RaiseEvent(PhotonEvent.OnRoundEnd, content, raiseEventOptions, SendOptions.SendReliable);
                 }
             }
-            
-          
         }
-        
-       
-      
-        
-       
-        
     }
-
+    public void SellHero()
+    {
+        if (UserManager.instance.TeamID == TeamID)
+        {
+            BoardManager.instance.DeleteHero(this, TeamID);
+        }
+    }
 }
 
 public enum TeamID

@@ -4635,7 +4635,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &233696104
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9242,7 +9242,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: -261.1, y: 1.4999962}
-  m_SizeDelta: {x: 0, y: 70.5}
+  m_SizeDelta: {x: 212.8, y: 70.5}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &595525631
 MonoBehaviour:
@@ -12511,6 +12511,8 @@ MonoBehaviour:
   _HeroRecords: []
   _currentSelectA: {fileID: 0}
   _currentSelectB: {fileID: 0}
+  _blueCoinTxt: {fileID: 6941964079908548631}
+  _redCoinTxt: {fileID: 638582518}
   _fightBoardRoot: {fileID: 837900263}
   _heroPref: {fileID: 4624320821420310582, guid: c8bcbdde0954d73478b55d336d7baa08, type: 3}
 --- !u!4 &837900265
@@ -14003,8 +14005,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -250, y: -50}
-  m_SizeDelta: {x: 448, y: 138}
+  m_AnchoredPosition: {x: -300, y: -5}
+  m_SizeDelta: {x: 500, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &917111834
 MonoBehaviour:
@@ -14379,7 +14381,7 @@ GameObject:
   - component: {fileID: 964270037}
   - component: {fileID: 964270039}
   m_Layer: 0
-  m_Name: Round
+  m_Name: SetupRound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14425,7 +14427,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Round
+  m_text: Game Start
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc2cc93475f76427c86a8262bee36b88, type: 2}
   m_sharedMaterial: {fileID: 2269793554123077917, guid: dc2cc93475f76427c86a8262bee36b88, type: 2}
@@ -14452,7 +14454,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 114.35
+  m_fontSize: 104.05
   m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -14516,6 +14518,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roundTxt: {fileID: 964270037}
   heroOnBoardTxt: {fileID: 1404043515}
+  blueCoinTxt: {fileID: 6941964079908548631}
+  redCoinTxt: {fileID: 638582518}
 --- !u!1 &966040875
 GameObject:
   m_ObjectHideFlags: 0
@@ -15151,8 +15155,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -17660,7 +17664,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1146010266
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17877,7 +17881,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 44.74994, y: 1.5000343}
-  m_SizeDelta: {x: 0, y: 70.5}
+  m_SizeDelta: {x: 219.94, y: 70.5}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1166382188
 MonoBehaviour:
@@ -19936,10 +19940,10 @@ RectTransform:
   m_Father: {fileID: 595525630}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 50}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 106.4, y: -35.25}
+  m_SizeDelta: {x: 132.8, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1336464081
 MonoBehaviour:
@@ -21266,9 +21270,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 100
+  m_MaxValue: 50
   m_WholeNumbers: 0
-  m_Value: 100
+  m_Value: 50
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -21625,7 +21629,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5/5
+  m_text: 0/0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc2cc93475f76427c86a8262bee36b88, type: 2}
   m_sharedMaterial: {fileID: 2269793554123077917, guid: dc2cc93475f76427c86a8262bee36b88, type: 2}
@@ -25284,7 +25288,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1690273180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25998,8 +26002,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 250, y: -50}
-  m_SizeDelta: {x: 448, y: 138}
+  m_AnchoredPosition: {x: 300, y: -5}
+  m_SizeDelta: {x: 500, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1716419423
 MonoBehaviour:
@@ -27063,9 +27067,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 100
+  m_MaxValue: 50
   m_WholeNumbers: 0
-  m_Value: 100
+  m_Value: 50
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -28719,11 +28723,11 @@ MonoBehaviour:
   gameState: 1
   gamePlayState: 0
   round: 0
-  coinInGame: 0
   heroOnBoard: 0
   maxHeroOnBoard: 8
   selectPhaseTime: 30
   hpLosePerHero: 10
+  maxHP: 50
   playerTeam: 0
 --- !u!4 &1880061792
 Transform:
@@ -30238,10 +30242,10 @@ RectTransform:
   m_Father: {fileID: 1166382187}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 50}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 109.97, y: -35.25}
+  m_SizeDelta: {x: 139.94, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1986866107
 MonoBehaviour:
@@ -32135,13 +32139,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 50
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -33030,7 +33034,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &6941964079854176545
 GameObject:
   m_ObjectHideFlags: 0

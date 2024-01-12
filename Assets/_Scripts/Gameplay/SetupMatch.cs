@@ -17,6 +17,7 @@ public class SetupMatch : MonoBehaviour, IOnEventCallback
 
     [SerializeField] private HeroProfileConfigMap _heroProfileConfigMap;
 
+    private int startCoin = 0;
     private void OnEnable()
     {
         PhotonNetwork.AddCallbackTarget(this);
@@ -31,18 +32,19 @@ public class SetupMatch : MonoBehaviour, IOnEventCallback
     {
         GameFlowManager.instance.round = 0;
         GameFlowManager.instance.heroOnBoard = 0;
-        UserManager.instance.CoinInGame = 3;
 
         if (PhotonNetwork.IsMasterClient)
         {
             GameFlowManager.instance.playerTeam = TeamID.Blue;
             _blueFullnameTxt.text = UserManager.instance.fullName;
+            UserManager.instance.TeamID = TeamID.Blue;
             SendPlayerInformation(TeamID.Blue, UserManager.instance.fullName, UserManager.instance.username);
         }
         else
         {
             GameFlowManager.instance.playerTeam = TeamID.Red;
             _redFullnameTxt.text = UserManager.instance.fullName;
+            UserManager.instance.TeamID = TeamID.Red;
             SendPlayerInformation(TeamID.Red, UserManager.instance.fullName, UserManager.instance.username);
 
             //UserManager.instance.CoinInGame += GameFlowManager.instance.coinInGame
@@ -64,7 +66,8 @@ public class SetupMatch : MonoBehaviour, IOnEventCallback
         {
             _blueFullnameTxt.text = name;
             MatchManager.instance.userBlue = username;
-            _blueCoinTxt.text = "3";
+            MatchManager.instance.userBlueCoin = startCoin;
+            _blueCoinTxt.text = MatchManager.instance.userBlueCoin.ToString();
 
             for (int i = 0; i < ids.Length; i++)
             {
@@ -75,7 +78,9 @@ public class SetupMatch : MonoBehaviour, IOnEventCallback
         {
             _redFullnameTxt.text = name;
             MatchManager.instance.userRed = username;
-            _redCoinTxt.text = "3";
+
+            MatchManager.instance.userRedCoin = startCoin;
+            _redCoinTxt.text = MatchManager.instance.userRedCoin.ToString();
 
             for (int i = 0; i < ids.Length; i++)
             {

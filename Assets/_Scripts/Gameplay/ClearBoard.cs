@@ -17,6 +17,13 @@ public class ClearBoard : MonoBehaviour, IOnEventCallback
     [SerializeField] private TMP_Text _blueHpTxt;
     [SerializeField] private TMP_Text _redHpTxt;
 
+    private void Start()
+    {
+        _blueHp.value = GameFlowManager.instance.maxHP;
+        _redHp.value = GameFlowManager.instance.maxHP;
+        _blueHpTxt.text = GameFlowManager.instance.maxHP + "/" + GameFlowManager.instance.maxHP;
+        _redHpTxt.text = GameFlowManager.instance.maxHP + "/" + GameFlowManager.instance.maxHP;
+    }
     public void OnEvent(EventData photonEvent)
     {
         byte eventCode = photonEvent.Code;
@@ -76,13 +83,13 @@ public class ClearBoard : MonoBehaviour, IOnEventCallback
     {
         if (teamID == TeamID.Red)
         {
-            _blueHp.DOValue(_blueHp.value - hp, 1).OnComplete(() => _blueHpTxt.text = _blueHp.value.ToString() + "/100"); 
+            _blueHp.DOValue(_blueHp.value - hp, 1).OnComplete(() => _blueHpTxt.text = _blueHp.value.ToString() + "/" + GameFlowManager.instance.maxHP); 
                
         }
             
         if (teamID == TeamID.Blue)
         {
-            _redHp.DOValue(_redHp.value - hp, 1).OnComplete(() => _redHpTxt.text = _redHp.value.ToString() + "/100"); 
+            _redHp.DOValue(_redHp.value - hp, 1).OnComplete(() => _redHpTxt.text = _redHp.value.ToString() + "/" + GameFlowManager.instance.maxHP); 
         }
        
         //Do victory pose

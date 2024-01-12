@@ -17,7 +17,10 @@ public class SetupOnRoundStart : MonoBehaviour, IOnEventCallback
     // Start is called before the first frame update
     void Start()
     {
-        
+        roundTxt.text = "Game Start";
+        heroOnBoardTxt.text = "";
+        blueCoinTxt.text = "0";
+        redCoinTxt.text = "0";
     }
 
     // Update is called once per frame
@@ -34,7 +37,54 @@ public class SetupOnRoundStart : MonoBehaviour, IOnEventCallback
             {
                 heroOnBoardTxt.text = BoardManager.instance._onBoardB.Count + "/" + GameFlowManager.instance.heroOnBoard;
             }
-            
+
+            var onBoard = BoardManager.instance.AllHeroes();
+            var onBench = BoardManager.instance.AllHeroesBench();
+            if (onBoard.Count > 0)
+            {
+                foreach (var hero in onBoard)
+                {
+                    if (BoardManager.instance._IsLock)
+                    {
+                        hero._deleteBtn.SetActive(false);
+                        Debug.Log("Board Lock");
+                    }
+                    else
+                    {
+                        Debug.Log("Board not Lock");
+
+                        if (hero.TeamID == UserManager.instance.TeamID)
+                        {
+                            hero._deleteBtn.SetActive(true);
+                        }
+                        else
+                        {
+                            hero._deleteBtn.SetActive(false);
+                        }
+                    }
+                }
+            }
+            if (onBench.Count > 0)
+            {
+                foreach (var hero in onBench)
+                {
+                    if (BoardManager.instance._IsLock)
+                    {
+                        hero._deleteBtn.SetActive(false);
+                    }
+                    else
+                    {
+                        if (hero.TeamID == UserManager.instance.TeamID)
+                        {
+                            hero._deleteBtn.SetActive(true);
+                        }
+                        else
+                        {
+                            hero._deleteBtn.SetActive(false);
+                        }
+                    }
+                }
+            }
         }
     }
 

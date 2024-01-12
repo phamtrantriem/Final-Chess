@@ -7,6 +7,7 @@ const authRouter = require("./routes/auth");
 const matchRouter = require("./routes/match");
 const userhRouter = require("./routes/user");
 const cardhRouter = require("./routes/card");
+const avatarRouter = require("./routes/avatar");
 
 const app = express();
 app.use(express.json());
@@ -31,6 +32,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/match", matchRouter);
 app.use("/api/user", userhRouter);
 app.use("/api/card", cardhRouter);
+app.use("/api/avatar", avatarRouter);
 
 const PORT = process.env.PORT || 5000;
 

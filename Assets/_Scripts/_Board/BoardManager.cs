@@ -499,6 +499,14 @@ public class BoardManager : MonoSingleton<BoardManager>, IOnEventCallback
         }
     }
 
+    public void DeleteHero(Hero hero, TeamID teamID)
+    {
+        List<BenchSlot> benchSlots = PlayerBenchSlot(teamID);
+        List<Hero> heroOnBoards = PlayerOnBoard(teamID);
+        List<Hero> heroOnBenchs = PlayerBench(teamID);
+        RemoveHero(hero, benchSlots, heroOnBoards, heroOnBenchs);
+    }
+
     void RemoveHero(Hero hero, List<BenchSlot> benchSlots, List<Hero> heroOnBoards, List<Hero> heroOnBenchs)
     {
         foreach (var bench in benchSlots)
@@ -663,11 +671,11 @@ public class BoardManager : MonoSingleton<BoardManager>, IOnEventCallback
 
     public List<Hero> AllHeroes()
     {
-        List<Hero> ans = new List<Hero>();  
-       
-        
-         ans = _onBoardA.Concat(_onBoardB).ToList();
-         return ans;
+        return _onBoardA.Concat(_onBoardB).ToList();
+    }    
+    public List<Hero> AllHeroesBench()
+    {
+        return _benchA.Concat(_benchA).ToList();
     }
 
     public Hero GetHeroByPosition(int x, int y)

@@ -1244,7 +1244,6 @@ GameObject:
   - component: {fileID: 4624320821420310583}
   - component: {fileID: 4624320821420310570}
   - component: {fileID: 6502189705683651804}
-  - component: {fileID: 2849093521455205638}
   m_Layer: 0
   m_Name: Hero
   m_TagString: Untagged
@@ -1368,6 +1367,7 @@ MonoBehaviour:
   _heroHUD: {fileID: 3034142547456051244}
   _heroVFXController: {fileID: 7487097303614170857}
   _heroBT: {fileID: 4624320821420310570}
+  _deleteBtn: {fileID: 8025825870691352132}
   _heroProfileConfigMap: {fileID: 11400000, guid: ec275fa2a9e3a794bb5489573e9ee6f9, type: 2}
   _rangeAttackBulletPref: {fileID: 8646619675482943653, guid: 52d528e8bc7684c43b10df562ac29200, type: 3}
   _bulletRoot: {fileID: 115558877709275006}
@@ -1429,20 +1429,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &2849093521455205638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4624320821420310582}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05e4cb45a2d2ab748b5ca7344038a27c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hero: {fileID: 4624320821420310583}
-  btnDelete: {fileID: 8025825870691352132}
 --- !u!1 &6233966361692545053
 GameObject:
   m_ObjectHideFlags: 0

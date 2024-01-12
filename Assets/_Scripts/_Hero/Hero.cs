@@ -34,6 +34,7 @@ public class Hero : MonoBehaviour
     [SerializeField] public HeroHUD _heroHUD;
     [SerializeField] public HeroVFXController _heroVFXController;
     [SerializeField] public HeroBT _heroBT;
+    [SerializeField] public GameObject _deleteBtn;
     
     [Header("Profile Config")]
     [SerializeField] private HeroProfileConfigMap _heroProfileConfigMap;
@@ -138,7 +139,7 @@ public class Hero : MonoBehaviour
     {
         if (UserManager.instance.TeamID == TeamID)
         {
-            BoardManager.instance.SellHero(this, TeamID);
+            BoardManager.instance.DeleteHero(this, TeamID);
         }
     }
 }

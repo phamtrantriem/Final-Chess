@@ -6,6 +6,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Hero : MonoBehaviour
 {
@@ -35,6 +36,7 @@ public class Hero : MonoBehaviour
     [SerializeField] public HeroVFXController _heroVFXController;
     [SerializeField] public HeroBT _heroBT;
     [SerializeField] public GameObject _deleteBtn;
+    [SerializeField] public Button _sellBtn;
     
     [Header("Profile Config")]
     [SerializeField] private HeroProfileConfigMap _heroProfileConfigMap;
@@ -42,7 +44,11 @@ public class Hero : MonoBehaviour
     [Header("Bullet pref")]
     [SerializeField] public RangeAttackBullet _rangeAttackBulletPref;
     [SerializeField] public GameObject _bulletRoot;
-    
+
+    private void Start()
+    {
+        _sellBtn.onClick.AddListener(SellHero);
+    }
     public void InitHero(TeamID teamID, string heroID, int level)
     {
         TeamID = teamID;
@@ -55,8 +61,8 @@ public class Hero : MonoBehaviour
         
 
         var config = _heroProfileConfigMap.GetValueFromKey(heroID);
-        HeroStats = config.HeroStats;
 
+        HeroStats = config.HeroStats;
         _heroHUD.SetHeroAttribute(HeroStats);
     }
 
@@ -83,6 +89,8 @@ public class Hero : MonoBehaviour
         
     }
     
+
+
     private void Dead()
     {
         BoardManager.instance.AllHeroes().Remove(this);
@@ -137,10 +145,34 @@ public class Hero : MonoBehaviour
     }
     public void SellHero()
     {
-        if (UserManager.instance.TeamID == TeamID)
+        BoardManager.instance.DeleteHero(this, TeamID);
+        /*List<BenchSlot> benchSlots = BoardManager.instance.PlayerBenchSlot(TeamID);
+        List<Hero> heroOnBoards = BoardManager.instance.PlayerOnBoard(TeamID);
+        List<Hero> heroOnBenchs = BoardManager.instance.PlayerBench(TeamID);
+
+        Debug.Log("Team " + this.TeamID + " remove this " + this.name);
+
+        foreach (var bench in benchSlots)
         {
-            BoardManager.instance.DeleteHero(this, TeamID);
+            if (bench.GetHero() == this)
+            {
+                bench.RemoveHero();
+            }
         }
+
+        if (heroOnBoards.Contains(this))
+        {
+            heroOnBoards.Remove(this);
+        }
+
+        if (heroOnBenchs.Contains(this))
+        {
+            heroOnBenchs.Remove(this);
+        }
+
+        //_allHeros.Remove(hero);
+
+        Destroy(gameObject);*/
     }
 }
 

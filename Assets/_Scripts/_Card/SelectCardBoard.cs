@@ -57,15 +57,16 @@ public class SelectCardBoard : MonoBehaviour, IOnEventCallback
 
     private void InitRandomCard()
     {
-        if (GameFlowManager.instance.round <= _heroPools.Count)
+        if (GameFlowManager.instance.round < _heroPools.Count)
         {
-            _heroPool = _heroPools[GameFlowManager.instance.round - 1].heroId;
+            _heroPool = _heroPools[GameFlowManager.instance.round].heroId;
         }
         else
         {
             _heroPool = _heroPools[_heroPools.Count - 1].heroId;
+
         }
-        
+
         // _randomCards.Clear();
         List<string> cardIds = new List<string>();
         for (int i = 0; i < _maxCardToSelect; i++)
@@ -145,6 +146,8 @@ public class SelectCardBoard : MonoBehaviour, IOnEventCallback
 
     IEnumerator IE_Cooldown()
     {
+        BoardManager.instance.HideDeleteButton();
+
         _cooldown.gameObject.SetActive(true);
         for (int i = GameFlowManager.instance.selectPhaseTime; i >= 0; i--)
         {
@@ -156,6 +159,8 @@ public class SelectCardBoard : MonoBehaviour, IOnEventCallback
         _openBtn.gameObject.SetActive(false);
         _cooldown.SetText("Fight!");
         BoardManager.instance._IsLock = true;
+        BoardManager.instance.HideDeleteButton();
+
         yield return new WaitForSeconds(2); 
         _cooldown.SetText("");
         _cooldown.gameObject.SetActive(false);
@@ -166,11 +171,15 @@ public class SelectCardBoard : MonoBehaviour, IOnEventCallback
         
         BoardManager.instance.CalculateHeroStat();
 
+
         if (PhotonNetwork.IsMasterClient)
         {
             BoardManager.instance.StartFight();
         }
+        BoardManager.instance.HideDeleteButton();
+
     }
+    
 }
 
 [Serializable]

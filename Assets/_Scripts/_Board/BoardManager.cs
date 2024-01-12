@@ -22,10 +22,10 @@ public class BoardManager : MonoSingleton<BoardManager>, IOnEventCallback
     public bool[,] Pos;
     
     //public List<Hero> _allHeros;
-    public List<Hero> _onBoardA;
-    public List<Hero> _onBoardB;
-    public List<Hero> _benchA;
-    public List<Hero> _benchB;
+    public List<Hero> _onBoardA = new List<Hero>();
+    public List<Hero> _onBoardB = new List<Hero>();
+    public List<Hero> _benchA = new List<Hero>();
+    public List<Hero> _benchB = new List<Hero>();
     public List<BenchSlot> _benchSlotA;
     public List<BenchSlot> _benchSlotB;
     
@@ -144,9 +144,12 @@ public class BoardManager : MonoSingleton<BoardManager>, IOnEventCallback
                         Debug.LogWarning("Not Found Species" + hero.HeroStats.Species);
                         break;
                 }
-            } 
-            
-            
+            }
+
+            //show after calculate
+            hero._heroHUD.SetHeroAttribute(hero.HeroStats);
+
+
             //set init HUD
             hero._heroHUD.SetSliderInitValue( hero.HeroStats.Hp , hero.HeroStats.MaxMana);
         }
@@ -222,7 +225,9 @@ public class BoardManager : MonoSingleton<BoardManager>, IOnEventCallback
             Hero hero = instantiate.GetComponent<Hero>();
             hero.InitHero(heroRecord.teamID, heroRecord.heroID, heroRecord.level);
             hero.name = hero.HeroStats.Name;
-            
+            hero._heroHUD.SetHeroAttribute(hero.HeroStats);
+
+
             hero.transform.position = new Vector2(heroRecord.posX, heroRecord.posY);
             hero.PosX = heroRecord.posX;
             hero.PosY = heroRecord.posY;
@@ -273,6 +278,9 @@ public class BoardManager : MonoSingleton<BoardManager>, IOnEventCallback
 
     public void AddHero(TeamID teamID, string heroID, Card card, int cost)
     {
+        //
+        
+
         // Minus coin of team
         MinusCoinAfterBoughtHero(teamID, cost);
 
@@ -505,10 +513,14 @@ public class BoardManager : MonoSingleton<BoardManager>, IOnEventCallback
         List<Hero> heroOnBoards = PlayerOnBoard(teamID);
         List<Hero> heroOnBenchs = PlayerBench(teamID);
         RemoveHero(hero, benchSlots, heroOnBoards, heroOnBenchs);
+        Debug.Log("Teamaaaaaa " + teamID + " remove hero " + hero.name);
+
     }
 
     void RemoveHero(Hero hero, List<BenchSlot> benchSlots, List<Hero> heroOnBoards, List<Hero> heroOnBenchs)
     {
+        Debug.Log("Team " + hero.TeamID + " remove hero " + hero.name);
+
         foreach (var bench in benchSlots)
         {
             if (bench.GetHero() == hero)
@@ -675,7 +687,7 @@ public class BoardManager : MonoSingleton<BoardManager>, IOnEventCallback
     }    
     public List<Hero> AllHeroesBench()
     {
-        return _benchA.Concat(_benchA).ToList();
+        return _benchA.Concat(_benchB).ToList();
     }
 
     public Hero GetHeroByPosition(int x, int y)
@@ -811,5 +823,54 @@ public class BoardManager : MonoSingleton<BoardManager>, IOnEventCallback
         }
         
         
+    }
+
+    public void HideDeleteButton()
+    {
+        var onBoard = BoardManager.instance.AllHeroes();
+        var onBench = BoardManager.instance.AllHeroesBench();
+        if (onBoard.Count > 0)
+        {
+            foreach (var hero in onBoard)
+            {
+                if (BoardManager.instance._IsLock)
+                {
+                    hero._deleteBtn.SetActive(false);
+                }
+                else
+                {
+
+                    if (hero.TeamID == UserManager.instance.TeamID)
+                    {
+                        hero._deleteBtn.SetActive(true);
+                    }
+                    else
+                    {
+                        hero._deleteBtn.SetActive(false);
+                    }
+                }
+            }
+        }
+        if (onBench.Count > 0)
+        {
+            foreach (var hero in onBench)
+            {
+                if (BoardManager.instance._IsLock)
+                {
+                    hero._deleteBtn.SetActive(false);
+                }
+                else
+                {
+                    if (hero.TeamID == UserManager.instance.TeamID)
+                    {
+                        hero._deleteBtn.SetActive(true);
+                    }
+                    else
+                    {
+                        hero._deleteBtn.SetActive(false);
+                    }
+                }
+            }
+        }
     }
 }

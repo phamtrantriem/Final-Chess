@@ -67,6 +67,7 @@ public class HeroHUD : MonoBehaviour
             + "HP: " + _stats.Hp + "\n"
             + "Class: " + _stats.Class + "\n"
             + "Species: " + _stats.Species + "\n";
+        Debug.Log("Hero Stat: " + _descriptionTxt.text);
     }
 
     public void OnOpenTooltip()

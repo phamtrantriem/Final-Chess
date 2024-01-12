@@ -121,14 +121,12 @@ public class Card : MonoBehaviour, IOnEventCallback
         int cost = int.Parse(_costTxt.text);
         if (id == this._id)
         {
-            Debug.Log("BlueTeam : " + MatchManager.instance.userBlueCoin + " || " + cost);
-            Debug.Log("RedTeam : " + MatchManager.instance.userRedCoin + " || " + cost);
-
             if (teamID == TeamID.Blue )
             {
                 if (MatchManager.instance.userBlueCoin >= cost)
                 {
                     BoardManager.instance.AddHero(teamID, _heroID, this, int.Parse(_costTxt.text));
+                    BoardManager.instance.HideDeleteButton();
                     SetInteractable(true);
                 }
             }
@@ -138,6 +136,7 @@ public class Card : MonoBehaviour, IOnEventCallback
                 if (MatchManager.instance.userRedCoin >= cost)
                 {
                     BoardManager.instance.AddHero(teamID, _heroID, this, int.Parse(_costTxt.text));
+                    BoardManager.instance.HideDeleteButton();
                     SetInteractable(true);
                 }
             }

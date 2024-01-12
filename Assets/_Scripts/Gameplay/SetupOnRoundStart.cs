@@ -30,61 +30,15 @@ public class SetupOnRoundStart : MonoBehaviour, IOnEventCallback
         {
             if (GameFlowManager.instance.playerTeam == TeamID.Blue)
             {
-                heroOnBoardTxt.text = BoardManager.instance._onBoardA.Count + "/" + GameFlowManager.instance.heroOnBoard;
+                heroOnBoardTxt.text = BoardManager.instance._onBoardA.Count + "/" + Mathf.Min(GameFlowManager.instance.round, GameFlowManager.instance.maxHeroOnBoard);
             }
         
             if (GameFlowManager.instance.playerTeam == TeamID.Red)
             {
-                heroOnBoardTxt.text = BoardManager.instance._onBoardB.Count + "/" + GameFlowManager.instance.heroOnBoard;
+                heroOnBoardTxt.text = BoardManager.instance._onBoardB.Count + "/" + Mathf.Min(GameFlowManager.instance.round, GameFlowManager.instance.maxHeroOnBoard);
             }
 
-            var onBoard = BoardManager.instance.AllHeroes();
-            var onBench = BoardManager.instance.AllHeroesBench();
-            if (onBoard.Count > 0)
-            {
-                foreach (var hero in onBoard)
-                {
-                    if (BoardManager.instance._IsLock)
-                    {
-                        hero._deleteBtn.SetActive(false);
-                        Debug.Log("Board Lock");
-                    }
-                    else
-                    {
-                        Debug.Log("Board not Lock");
-
-                        if (hero.TeamID == UserManager.instance.TeamID)
-                        {
-                            hero._deleteBtn.SetActive(true);
-                        }
-                        else
-                        {
-                            hero._deleteBtn.SetActive(false);
-                        }
-                    }
-                }
-            }
-            if (onBench.Count > 0)
-            {
-                foreach (var hero in onBench)
-                {
-                    if (BoardManager.instance._IsLock)
-                    {
-                        hero._deleteBtn.SetActive(false);
-                    }
-                    else
-                    {
-                        if (hero.TeamID == UserManager.instance.TeamID)
-                        {
-                            hero._deleteBtn.SetActive(true);
-                        }
-                        else
-                        {
-                            hero._deleteBtn.SetActive(false);
-                        }
-                    }
-                }
-            }
+            
         }
     }
 
@@ -100,7 +54,7 @@ public class SetupOnRoundStart : MonoBehaviour, IOnEventCallback
             redCoinTxt.text = MatchManager.instance.userRedCoin.ToString();
             GameFlowManager.instance.heroOnBoard = Mathf.Min( GameFlowManager.instance.round, GameFlowManager.instance.maxHeroOnBoard);
             roundTxt.text = "Round " + GameFlowManager.instance.round;
-            heroOnBoardTxt.text = "5/" + GameFlowManager.instance.heroOnBoard;
+            heroOnBoardTxt.text = GameFlowManager.instance.heroOnBoard + "/" + GameFlowManager.instance.maxHeroOnBoard;
         }
     }
     

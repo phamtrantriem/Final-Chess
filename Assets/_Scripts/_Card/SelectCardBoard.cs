@@ -57,7 +57,7 @@ public class SelectCardBoard : MonoBehaviour, IOnEventCallback
 
     private void InitRandomCard()
     {
-        if (_heroPools.Count <= GameFlowManager.instance.round )
+        if (GameFlowManager.instance.round <= _heroPools.Count)
         {
             _heroPool = _heroPools[GameFlowManager.instance.round - 1].heroId;
         }

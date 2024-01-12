@@ -1,5 +1,5 @@
 const express = require("express");
-const { model } = require("mongoose");
+const { model, Types } = require("mongoose");
 const router = express.Router();
 const argon2 = require("argon2");
 const jwt = require("jsonwebtoken");
@@ -9,18 +9,16 @@ const User = require("../models/User");
 const userController = {
   updateProfile: async (req, res) => {
     const { username, fullName, email, avatar } = req.body;
-    if (!username) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Missing username" });
+    let updatedUser = {
+    };
+    if (username) {
+      updatedUser = { ...updatedUser, username}
     }
-    if (!fullName) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Missing fullName" });
+    if (fullName) {
+      updatedUser = { ...updatedUser, fullName}
     }
-    if (!email) {
-      return res.status(400).json({ success: false, message: "Missing email" });
+    if (email) {
+      updatedUser = { ...updatedUser, email}
     }
     try {
       //Get user
@@ -33,13 +31,8 @@ const userController = {
             }*/
 
       //all good
-      let updatedUser = {
-        username,
-        fullName,
-        email,
-      };
       if (avatar) {
-        updatedUser = { ...updatedUser, avatar }
+        updatedUser = { ...updatedUser, avatar: avatar }
       }
 
       const userUpdateCondition = { _id: req.userId };
